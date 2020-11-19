@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/*
 enum DeviceType: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
     
@@ -20,6 +21,8 @@ enum MeasureType: String, CaseIterable, Identifiable {
     case kgc
     case mpa
 }
+*/
+
 
 struct Settings: View {
     

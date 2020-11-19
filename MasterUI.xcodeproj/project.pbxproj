@@ -14,6 +14,7 @@
 		88A66CF9255FFC1F006220A2 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A66CF8255FFC1F006220A2 /* Main.swift */; };
 		88A66CFF25600049006220A2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A66CFE25600049006220A2 /* Settings.swift */; };
 		88CF5F252564AE4200A4683B /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF5F242564AE4200A4683B /* Info.swift */; };
+		FA9B4E4F256637C7005481A8 /* infoData.json in Resources */ = {isa = PBXBuildFile; fileRef = FA9B4E4E256637C7005481A8 /* infoData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		88A66CF8255FFC1F006220A2 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		88A66CFE25600049006220A2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		88CF5F242564AE4200A4683B /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		FA9B4E4E256637C7005481A8 /* infoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = infoData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				88A66CFC255FFFF1006220A2 /* VIew */,
 				88A66CFD25600019006220A2 /* Model */,
 				88A66CEB255F758E006220A2 /* Assets.xcassets */,
+				FA9B4E4E256637C7005481A8 /* infoData.json */,
 				88A66CF0255F758E006220A2 /* Info.plist */,
 				88A66CED255F758E006220A2 /* Preview Content */,
 			);
@@ -151,6 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9B4E4F256637C7005481A8 /* infoData.json in Resources */,
 				88A66CEF255F758E006220A2 /* Preview Assets.xcassets in Resources */,
 				88A66CEC255F758E006220A2 /* Assets.xcassets in Resources */,
 			);
