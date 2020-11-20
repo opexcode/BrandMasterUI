@@ -53,11 +53,11 @@ class FetchData: ObservableObject {
 
 struct Info: View {
 	
-    @State private var text = ""
+	@State private var text = ""
 	
-    var body: some View {
-        NavigationView {
-            VStack {
+	var body: some View {
+		NavigationView {
+			VStack {
 				TextField("Search ...", text: $text)
 					.padding(7)
 					.padding(.horizontal, 25)
@@ -67,82 +67,89 @@ struct Info: View {
 					.onTapGesture {
 						//                                    self.isEditing = true
 					}
-                List {
-                    Section {
-                        NavigationLink(destination: Service()) {
-                            Image(systemName: "star.fill")
-                            Text("Примечания к формулам")
-                        }
-                        
-                        NavigationLink(destination: Instructions()) {
-                            Image(systemName: "folder")
-                            Text("Обязаности")
-                        }
-                        
-                        NavigationLink(destination: Service()) {
-                            Image(systemName: "folder")
-                            Text("ГДЗС")
-                        }
-                        
-                        NavigationLink(destination: Devices()) {
-                            Image(systemName: "folder")
-                            Text("СИЗОД")
-                        }
-                        
-                        NavigationLink(destination: Service()) {
-                            Image(systemName: "folder")
-                            Text("РТП")
-                        }
-                        
-                    }
-                    
-                    Section {
-                        NavigationLink(destination: Instructions()) {
-                            Image(systemName: "applelogo")
-                            Text("Оценить БрандМастер")
-                            
-                        }
-                        
-                        NavigationLink(destination: Instructions()) {
-                            Image(systemName: "person.crop.circle.badge.plus")
-                            Text("БрандМастер в VK")
-                        }
-                        
-                        NavigationLink(destination: Instructions()) {
-                            Image(systemName: "at.badge.plus")
-                            Text("Написать разработчику")
-                        }
-                        
-                        NavigationLink(destination: Instructions()) {
-                            Image(systemName: "lock.fill")
-                            Text("Политика конфеденциальности")
-                        }
-                    }
-                }
-            }
-            
+				List {
+					Section {
+						NavigationLink(destination: Service()) {
+							Image(systemName: "star.fill")
+							Text("Примечания к формулам")
+						}
+						
+						NavigationLink(destination: Instructions()) {
+							Image(systemName: "folder")
+							Text("Обязаности")
+						}
+						
+						NavigationLink(destination: Service()) {
+							Image(systemName: "folder")
+							Text("ГДЗС")
+						}
+						
+						NavigationLink(destination: Devices()) {
+							Image(systemName: "folder")
+							Text("СИЗОД")
+						}
+						
+						NavigationLink(destination: Service()) {
+							Image(systemName: "folder")
+							Text("РТП")
+						}
+						
+					}
+					
+					Section {
+						Button("BUTTON", action: {
+							if let url = URL(string: "https://apps.apple.com/ru/app/id1508823670") {
+											UIApplication.shared.open(url, options: [:], completionHandler: nil)
+										}
+						})
+						
+						NavigationLink(destination: Instructions()) {
+							Image(systemName: "applelogo")
+							Text("Оценить БрандМастер")
+							
+						}
+						
+						NavigationLink(destination: Instructions()) {
+							Image(systemName: "person.crop.circle.badge.plus")
+							Text("БрандМастер в VK")
+						}
+						
+						NavigationLink(destination: Instructions()) {
+							Image(systemName: "at.badge.plus")
+							Text("Написать разработчику")
+						}
+						
+						NavigationLink(destination: Instructions()) {
+							Image(systemName: "lock.fill")
+							Text("Политика конфеденциальности")
+						}
+					}
+				}
+			}
+			
 			.listStyle(GroupedListStyle())
-            .navigationBarTitle("Информация")
-        }
-//		VStack {
-//			Text("БрандМастер - ГДЗС")
-//			Text("version 1.0")
-//		}
-    }
+			.navigationBarTitle("Информация")
+		}
+		//		VStack {
+		//			Text("БрандМастер - ГДЗС")
+		//			Text("version 1.0")
+		//		}
+	}
 }
 
+// Обязанности
 struct Instructions: View {
 	@ObservedObject var fetchFrom = FetchData()
 	
-    private var service = ["Командир звена", "Газодымозащитник", "Постовой", "При использовании ДАСК", "При использовании ДАСК"]
-    
-    private var funcional = ["Помощник НК", "Командир отделения", "Пожарный", "Водитель ПА"]
-    
-    private var inner = ["Дежурный по подразделению", "Дневальный по гаражу", "Дневальный по помещениям", "Постовой у фасада"]
-    
-    var body: some View {
-        List {
-            Section(header: Text("ГДЗС").frame(height: 50)) {
+	private var service = ["Командир звена", "Газодымозащитник", "Постовой", "При использовании ДАСК", "При использовании ДАСК"]
+	
+	private var functional = ["Помощник НК", "Командир отделения", "Пожарный", "Водитель ПА"]
+	
+	private var inner = ["Дежурный по подразделению", "Дневальный по гаражу", "Дневальный по помещениям", "Постовой у фасада"]
+	
+	var body: some View {
+		List {
+			Section(header: Text("ГДЗС").frame(height: 50)) {
 				
 				ForEach(0..<service.count) { i in
 					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].service[i])) {
@@ -150,51 +157,77 @@ struct Instructions: View {
 						Text(service[i])
 					}
 				}
-            }
+			}
 			
-            Section(header: Text("Функциональные").frame(height: 50)) {
+			Section(header: Text("Функциональные").frame(height: 50)) {
 				
-				ForEach(0..<funcional.count) {
-					NavigationLink(funcional[$0], destination: DisplayText(text: fetchFrom.json[0].functional[$0]))
+				ForEach(0..<functional.count) { i in
+					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].functional[i])) {
+						Image(systemName: "doc.text")
+						Text(functional[i])
+					}
 				}
-            }
-            
-            Section(header: Text("Внутренний наряд").frame(height: 50)) {
+			}
+			
+			Section(header: Text("Внутренний наряд").frame(height: 50)) {
 				
-				ForEach(0..<inner.count) {
-					NavigationLink(inner[$0], destination: DisplayText(text: fetchFrom.json[0].inner[$0]))
+				ForEach(0..<inner.count) { i in
+					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].inner[i])) {
+						Image(systemName: "doc.text")
+						Text(inner[i])
+					}
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 }
 
+
+// ГДЗС
 struct Service: View {
-    private var service = ["Обслуживание СИЗОД", "Правила работы в СИЗОД", "Звено и ПБ", "Минимум оснащения"]
-    
-    var body: some View {
-        List {
-            ForEach(0..<service.count) {
-                Text("\(service[$0])")
-            }
-        }
-    }
+	@ObservedObject var fetchFrom = FetchData()
+	
+	private var service = ["Обслуживание СИЗОД", "Правила работы в СИЗОД", "Звено и ПБ", "Минимум оснащения"]
+	
+	var body: some View {
+		List {
+			Section {
+				ForEach(0..<service.count) { i in
+					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].maintenance[i])) {
+						Image(systemName: "doc.text")
+						Text(service[i])
+					}
+				}
+			}
+		}
+	}
 }
 
+
+// СИЗОД
 struct Devices: View {
-    var body: some View {
-        Text("")
-    }
+	var body: some View {
+		Text("")
+	}
 }
+
+
+// РТП
 
 
 struct DisplayText: View {
-//	@ObservedObject var fetchFrom = FetchData()
 	var text: String
 	
-    var body: some View {
+	@State private var fontSize = 20
+	
+	var body: some View {
 		ScrollView {
 			Text(text)
+				.padding()
 		}
-    }
+		.toolbar {
+			Stepper("", value: $fontSize, in: 14...25)
+//				.disabled(fireStatus == 0)
+		}
+	}
 }
