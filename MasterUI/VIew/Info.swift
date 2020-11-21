@@ -7,49 +7,6 @@
 
 import SwiftUI
 
-struct Answer: Codable {
-	var infoData: [InfoData]
-}
-
-struct InfoData: Codable {
-	var service: [String]
-	var functional: [String]
-	var inner: [String]
-	var maintenance: [String]
-}
-
-class FetchData: ObservableObject {
-	
-	@Published var json = [InfoData]()
-	
-	init() {
-		parse()
-	}
-	
-	func parse() {
-		var d: Data?
-		do {
-			d = try Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "infoData", ofType: "json")!))
-		} catch {
-			print("Ошибка получения Data: \(error.localizedDescription)")
-		}
-		
-		guard let data = d else {
-			print("Error...")
-			return
-		}
-		
-		do {
-			let answer = try JSONDecoder().decode(Answer.self, from: data)
-			self.json = answer.infoData
-		} catch {
-			print("Error... \(error.localizedDescription)")
-		}
-	}
-	
-}
-
-
 
 struct Info: View {
 	
@@ -97,32 +54,26 @@ struct Info: View {
 					}
 					
 					Section {
-						Button("BUTTON", action: {
-							if let url = URL(string: "https://apps.apple.com/ru/app/id1508823670") {
-											UIApplication.shared.open(url, options: [:], completionHandler: nil)
-										}
-						})
-						
-						NavigationLink(destination: Instructions()) {
-							Image(systemName: "applelogo")
-							Text("Оценить БрандМастер")
-							
-						}
-						
-						NavigationLink(destination: Instructions()) {
-							Image(systemName: "person.crop.circle.badge.plus")
-							Text("БрандМастер в VK")
-						}
-						
-						NavigationLink(destination: Instructions()) {
-							Image(systemName: "at.badge.plus")
-							Text("Написать разработчику")
-						}
-						
-						NavigationLink(destination: Instructions()) {
-							Image(systemName: "lock.fill")
-							Text("Политика конфеденциальности")
-						}
+                        
+                        HStack {
+                            Image(systemName: "applelogo")
+                            Link("Оценить БрандМастер", destination: URL(string: "https://apps.apple.com/ru/app/id1508823670")!)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "person.crop.circle.badge.plus")
+                            Link("БрандМастер в VK", destination: URL(string: "https://vk.com/brmeister")!)
+                        }
+             
+                        HStack {
+                            Image(systemName: "at.badge.plus")
+                            Link("Написать разработчику", destination: URL(string: "mailto:bmasterfire@gmail.com")!)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "lock.fill")
+                            Link("Политика конфеденциальности", destination: URL(string: "https://alekseyorehov.github.io/BrandMaster/")!)
+                        }
 					}
 				}
 			}
@@ -139,7 +90,7 @@ struct Info: View {
 
 // Обязанности
 struct Instructions: View {
-	@ObservedObject var fetchFrom = FetchData()
+	@ObservedObject var fetchFrom = JSONParser()
 	
 	private var service = ["Командир звена", "Газодымозащитник", "Постовой", "При использовании ДАСК", "При использовании ДАСК"]
 	
@@ -185,7 +136,7 @@ struct Instructions: View {
 
 // ГДЗС
 struct Service: View {
-	@ObservedObject var fetchFrom = FetchData()
+	@ObservedObject var fetchFrom = JSONParser()
 	
 	private var service = ["Обслуживание СИЗОД", "Правила работы в СИЗОД", "Звено и ПБ", "Минимум оснащения"]
 	
@@ -206,6 +157,7 @@ struct Service: View {
 
 // СИЗОД
 struct Devices: View {
+    let devices = ["", "", "", "", ""]
 	var body: some View {
 		Text("")
 	}

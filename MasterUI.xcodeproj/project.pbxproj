@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		885BD6072567DCED00496E3B /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6052567DCED00496E3B /* Calculations.swift */; };
+		885BD6082567DCED00496E3B /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6062567DCED00496E3B /* Parameters.swift */; };
+		885BD60F2567DD2C00496E3B /* airFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 885BD60B2567DD2C00496E3B /* airFoundNew.pdf */; };
+		885BD6102567DD2C00496E3B /* signal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 885BD60C2567DD2C00496E3B /* signal.pdf */; };
+		885BD6112567DD2C00496E3B /* airNotFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 885BD60D2567DD2C00496E3B /* airNotFoundNew.pdf */; };
+		885BD6122567DD2C00496E3B /* Marks.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 885BD60E2567DD2C00496E3B /* Marks.pdf */; };
+		885BD6152567DD3C00496E3B /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6142567DD3C00496E3B /* PDFCreator.swift */; };
+		885BD6182567DD5200496E3B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6172567DD5200496E3B /* UserSettings.swift */; };
+		885BD61B25688B6200496E3B /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD61A25688B6200496E3B /* JSONParser.swift */; };
 		88A66CE8255F7582006220A2 /* MasterUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A66CE7255F7582006220A2 /* MasterUIApp.swift */; };
 		88A66CEA255F7582006220A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A66CE9255F7582006220A2 /* ContentView.swift */; };
 		88A66CEC255F758E006220A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88A66CEB255F758E006220A2 /* Assets.xcassets */; };
@@ -18,6 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		885BD6052567DCED00496E3B /* Calculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
+		885BD6062567DCED00496E3B /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		885BD60B2567DD2C00496E3B /* airFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airFoundNew.pdf; sourceTree = "<group>"; };
+		885BD60C2567DD2C00496E3B /* signal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = signal.pdf; sourceTree = "<group>"; };
+		885BD60D2567DD2C00496E3B /* airNotFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airNotFoundNew.pdf; sourceTree = "<group>"; };
+		885BD60E2567DD2C00496E3B /* Marks.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Marks.pdf; sourceTree = "<group>"; };
+		885BD6142567DD3C00496E3B /* PDFCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
+		885BD6172567DD5200496E3B /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		885BD61A25688B6200496E3B /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		88A66CE4255F7582006220A2 /* MasterUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88A66CE7255F7582006220A2 /* MasterUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUIApp.swift; sourceTree = "<group>"; };
 		88A66CE9255F7582006220A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -41,6 +59,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		885BD6042567DCCF00496E3B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				885BD6142567DD3C00496E3B /* PDFCreator.swift */,
+				885BD6052567DCED00496E3B /* Calculations.swift */,
+				885BD6062567DCED00496E3B /* Parameters.swift */,
+				885BD6172567DD5200496E3B /* UserSettings.swift */,
+				885BD61A25688B6200496E3B /* JSONParser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		885BD60A2567DD2C00496E3B /* PDFPatterns */ = {
+			isa = PBXGroup;
+			children = (
+				885BD60B2567DD2C00496E3B /* airFoundNew.pdf */,
+				885BD60C2567DD2C00496E3B /* signal.pdf */,
+				885BD60D2567DD2C00496E3B /* airNotFoundNew.pdf */,
+				885BD60E2567DD2C00496E3B /* Marks.pdf */,
+			);
+			path = PDFPatterns;
+			sourceTree = "<group>";
+		};
 		88A66CDB255F7582006220A2 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +101,8 @@
 		88A66CE6255F7582006220A2 /* MasterUI */ = {
 			isa = PBXGroup;
 			children = (
+				885BD60A2567DD2C00496E3B /* PDFPatterns */,
+				885BD6042567DCCF00496E3B /* Model */,
 				88A66CE7255F7582006220A2 /* MasterUIApp.swift */,
 				88A66CFC255FFFF1006220A2 /* VIew */,
 				88A66CFD25600019006220A2 /* Model */,
@@ -155,8 +198,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA9B4E4F256637C7005481A8 /* infoData.json in Resources */,
+				885BD60F2567DD2C00496E3B /* airFoundNew.pdf in Resources */,
 				88A66CEF255F758E006220A2 /* Preview Assets.xcassets in Resources */,
 				88A66CEC255F758E006220A2 /* Assets.xcassets in Resources */,
+				885BD6122567DD2C00496E3B /* Marks.pdf in Resources */,
+				885BD6102567DD2C00496E3B /* signal.pdf in Resources */,
+				885BD6112567DD2C00496E3B /* airNotFoundNew.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,8 +215,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				88A66CF9255FFC1F006220A2 /* Main.swift in Sources */,
+				885BD6082567DCED00496E3B /* Parameters.swift in Sources */,
+				885BD6072567DCED00496E3B /* Calculations.swift in Sources */,
 				88A66CEA255F7582006220A2 /* ContentView.swift in Sources */,
+				885BD6182567DD5200496E3B /* UserSettings.swift in Sources */,
 				88A66CFF25600049006220A2 /* Settings.swift in Sources */,
+				885BD61B25688B6200496E3B /* JSONParser.swift in Sources */,
+				885BD6152567DD3C00496E3B /* PDFCreator.swift in Sources */,
 				88CF5F252564AE4200A4683B /* Info.swift in Sources */,
 				88A66CE8255F7582006220A2 /* MasterUIApp.swift in Sources */,
 			);
