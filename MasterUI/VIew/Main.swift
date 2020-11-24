@@ -64,6 +64,7 @@ struct Main: View {
 							}
 							.padding(5)
 						}
+						
 						.cornerRadius(8.0)
 						.shadow(color: Color.gray, radius: 3)
 						//                        .overlay(

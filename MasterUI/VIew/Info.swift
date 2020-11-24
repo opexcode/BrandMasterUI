@@ -13,24 +13,25 @@ struct Info: View {
     @State private var text = ""
     
     var body: some View {
+		
         NavigationView {
+			
             VStack {
+				
                 TextField("Search ...", text: $text)
                     .padding(7)
                     .padding(.horizontal, 25)
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
                     .padding(.horizontal, 10)
-                    .onTapGesture {
-                        //                                    self.isEditing = true
-                    }
+				
                 List {
                     Section {
                         NavigationLink(destination: Service()) {
                             Image(systemName: "star.fill")
                             Text("Примечания к формулам")
                         }
-                        
+						
                         NavigationLink(destination: Instructions()) {
                             Image(systemName: "folder")
                             Text("Обязаности")
@@ -75,9 +76,9 @@ struct Info: View {
                             Link("Политика конфеденциальности", destination: URL(string: "https://alekseyorehov.github.io/BrandMaster/")!)
                         }
                     }
+					.foregroundColor(.primary)
                 }
             }
-            
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Информация")
         }
@@ -86,17 +87,17 @@ struct Info: View {
 
 // Обязанности
 struct Instructions: View {
+	
     @ObservedObject var fetchFrom = JSONParser()
     
     private var service = ["Командир звена", "Газодымозащитник", "Постовой", "При использовании ДАСК", "При использовании ДАСК"]
-    
     private var functional = ["Помощник НК", "Командир отделения", "Пожарный", "Водитель ПА"]
-    
     private var inner = ["Дежурный по подразделению", "Дневальный по гаражу", "Дневальный по помещениям", "Постовой у фасада"]
     
     var body: some View {
+		
         List {
-            Section(header: Text("ГДЗС").frame(height: 50)) {
+			Section(header: Text("ГДЗС").frame(height: 50)) {
                 
                 ForEach(0..<service.count) { i in
                     NavigationLink(destination: DisplayText(text: fetchFrom.json[0].service[i])) {
@@ -132,6 +133,7 @@ struct Instructions: View {
 
 // ГДЗС
 struct Service: View {
+	
     @ObservedObject var fetchFrom = JSONParser()
     
     private var service = ["Обслуживание СИЗОД", "Правила работы в СИЗОД", "Звено и ПБ", "Минимум оснащения"]
@@ -155,9 +157,12 @@ struct Service: View {
 
 // СИЗОД
 struct Devices: View {
+	
     let devices = ["АП Омега", "ПТС Базис", "ПТС Профи М/МП", "AirGO MSA", "Drager PSS 3000/5000"]
     var body: some View {
+		
             List(devices, id: \.self) { device in
+				
                 NavigationLink(destination: DeviceFeatures()) {
                     Text(device)
                         .lineLimit(1)
@@ -176,7 +181,6 @@ struct Devices: View {
 
 
 // РТП
-
 
 struct DisplayText: View {
     var text: String
