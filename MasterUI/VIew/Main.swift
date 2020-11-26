@@ -65,12 +65,12 @@ struct Main: View {
 							.padding(5)
 						}
 						
-						.cornerRadius(8.0)
-						.shadow(color: Color.gray, radius: 3)
-						//                        .overlay(
-						//                            RoundedRectangle(cornerRadius: 15)
-						//                                .stroke(Color.gray, lineWidth: 1)
-						//                        )
+						//						.cornerRadius(8.0)
+						//						.shadow(color: Color.gray, radius: 3)
+						.overlay(
+							RoundedRectangle(cornerRadius: 10)
+								.stroke(Color.gray, lineWidth: 1)
+						)
 						
 						ZStack {
 							Color.white
@@ -91,12 +91,12 @@ struct Main: View {
 							}
 							.padding(5)
 						}
-						.cornerRadius(8.0)
-						.shadow(color: Color.gray, radius: 3)
-						//                        .overlay(
-						//                            RoundedRectangle(cornerRadius: 15)
-						//                                .stroke(Color.gray, lineWidth: 1)
-						//                        )
+						//						.cornerRadius(8.0)
+						//						.shadow(color: Color.gray, radius: 3)
+						.overlay(
+							RoundedRectangle(cornerRadius: 10)
+								.stroke(Color.gray, lineWidth: 1)
+						)
 					}
 					
 					
@@ -131,13 +131,13 @@ struct Main: View {
 							}
 						}
 						.padding()
-//						.overlay(
-//							RoundedRectangle(cornerRadius: 10)
-//								.stroke(Color.gray, lineWidth: 1)
-//						)
+						.overlay(
+							RoundedRectangle(cornerRadius: 10)
+								.stroke(Color.gray, lineWidth: 1)
+						)
 					}
-					.cornerRadius(8.0)
-					.shadow(color: Color.gray, radius: 3)
+					//					.cornerRadius(8.0)
+					//					.shadow(color: Color.gray, radius: 3)
 					
 					// Состав звена
 					ZStack {
@@ -165,13 +165,13 @@ struct Main: View {
 							
 						}
 						.padding()
-	//					.overlay(
-	//						RoundedRectangle(cornerRadius: 10)
-	//							.stroke(Color.gray, lineWidth: 1)
-	//					)
-						}
-					.cornerRadius(8.0)
-					.shadow(color: Color.gray, radius: 3)
+						.overlay(
+							RoundedRectangle(cornerRadius: 10)
+								.stroke(Color.gray, lineWidth: 1)
+						)
+					}
+					//					.cornerRadius(8.0)
+					//					.shadow(color: Color.gray, radius: 3)
 					Spacer()
 				}
 				.gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
