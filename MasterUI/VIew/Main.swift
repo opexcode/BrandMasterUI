@@ -65,12 +65,12 @@ struct Main: View {
 							.padding(5)
 						}
 						
-						//						.cornerRadius(8.0)
-						//						.shadow(color: Color.gray, radius: 3)
-						.overlay(
-							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color.gray, lineWidth: 1)
-						)
+												.cornerRadius(8.0)
+												.shadow(color: Color.gray, radius: 2)
+//						.overlay(
+//							RoundedRectangle(cornerRadius: 10)
+//								.stroke(Color.gray, lineWidth: 1)
+//						)
 						
 						ZStack {
 							Color.white
@@ -91,12 +91,12 @@ struct Main: View {
 							}
 							.padding(5)
 						}
-						//						.cornerRadius(8.0)
-						//						.shadow(color: Color.gray, radius: 3)
-						.overlay(
-							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color.gray, lineWidth: 1)
-						)
+												.cornerRadius(8.0)
+												.shadow(color: Color.gray, radius: 2)
+//						.overlay(
+//							RoundedRectangle(cornerRadius: 10)
+//								.stroke(Color.gray, lineWidth: 1)
+//						)
 					}
 					
 					
@@ -110,6 +110,8 @@ struct Main: View {
 							Text("Время")
 								.font(.headline)
 							
+							Divider()
+							
 							HStack {
 								Text("Включения:")
 									.font(.headline)
@@ -117,8 +119,11 @@ struct Main: View {
 								DatePicker("", selection: $enterTime, in: ...Date(), displayedComponents: .hourAndMinute)
 									.datePickerStyle(GraphicalDatePickerStyle())
 							}
+							.frame(height: 35)
+							
 							
 							if fireStatus == 1 {
+								Divider()
 								
 								HStack {
 									Text("У очага:")
@@ -127,17 +132,18 @@ struct Main: View {
 									DatePicker("", selection: $fireTime, in: ...Date(), displayedComponents: .hourAndMinute)
 										.datePickerStyle(GraphicalDatePickerStyle())
 								}
+								.frame(height: 35)
 								
 							}
 						}
 						.padding()
-						.overlay(
-							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color.gray, lineWidth: 1)
-						)
+//						.overlay(
+//							RoundedRectangle(cornerRadius: 10)
+//								.stroke(Color.gray, lineWidth: 1)
+//						)
 					}
-					//					.cornerRadius(8.0)
-					//					.shadow(color: Color.gray, radius: 3)
+										.cornerRadius(8.0)
+										.shadow(color: Color.gray, radius: 2)
 					
 					// Состав звена
 					ZStack {
@@ -148,6 +154,8 @@ struct Main: View {
 							Stepper("Состав звена", value: $team, in: 2...5)
 								.font(.headline)
 								.disabled(fireStatus == 0)
+							
+//							Divider()
 							
 							if fireStatus == 0 {
 								TextField("P min. вкл.", text: $minValue)
@@ -165,13 +173,13 @@ struct Main: View {
 							
 						}
 						.padding()
-						.overlay(
-							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color.gray, lineWidth: 1)
-						)
+//						.overlay(
+//							RoundedRectangle(cornerRadius: 10)
+//								.stroke(Color.gray, lineWidth: 1)
+//						)
 					}
-					//					.cornerRadius(8.0)
-					//					.shadow(color: Color.gray, radius: 3)
+										.cornerRadius(8.0)
+										.shadow(color: Color.gray, radius: 2)
 					Spacer()
 				}
 				.gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
@@ -189,6 +197,7 @@ struct Main: View {
 				.environment(\.locale, Locale.init(identifier: "ru"))
 				
 			}
+//			.background(Color.gray)
 		}
 		
 	}

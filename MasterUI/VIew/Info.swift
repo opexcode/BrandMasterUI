@@ -11,51 +11,60 @@ import SwiftUI
 struct Info: View {
 	
 	@State private var searchText = ""
-	@ObservedObject var fetchFrom = JSONParser()
-	
-	var array = ["минимум", "постового", "командир", "пожарный", "водитель", "гдзс", "сизод", "оснащение", "обслуживание"]
-	
-	var dict = ["минимум": DisplayText(text: "text")]
+	@State private var typing = false
+	//	@ObservedObject var fetchFrom = JSONParser()
 	
 	var body: some View {
 		
 		NavigationView {
+			
 			VStack {
-				
+//				Text("YYYYYYYYY")
+				// MARK: - SearchBar
+
 				HStack {
 					
-					Image(systemName: "magnifyingglass")
-						.foregroundColor(Color(.systemGray2))
-					
-					TextField("Поиск", text: $searchText)
-						.autocapitalization(.none)
-					
-					Button(action: {
-						searchText = ""
-					}) {
-						Image(systemName: "xmark.circle.fill")
+					HStack {
+						
+						Image(systemName: "magnifyingglass")
 							.foregroundColor(Color(.systemGray2))
-					}
-				}
-				.padding(7)
-				.background(Color(.systemGray6))
-				.cornerRadius(8)
-				.padding(.horizontal, 10)
-				
-				if searchText != "" {
-					//-----------------------------
-					List {
-						if searchText != "" {
-							ForEach(array.filter{searchText == "" || $0.hasPrefix(searchText)}, id:\.self) { searchText in
-								NavigationLink(destination: DisplayText(text: searchText)) {
-									Text(searchText)
-								}
+						
+						TextField("Поиск", text: $searchText)
+							.autocapitalization(.none)
+							.onTapGesture {
+								self.typing = true
 							}
+						
+						
+						Button(action: {
+							searchText = ""
+						}) {
+							Image(systemName: "xmark.circle.fill")
+								.foregroundColor(Color(.systemGray2))
 						}
 					}
-					.listStyle(InsetListStyle())
-					//-----------------------------
+					.padding(8)
+					.background(Color(.systemGray6))
+					.cornerRadius(8)
+					
+					if typing {
+						Button("Отмена", action: {
+							self.endEditing(true)
+							self.typing = false
+							self.searchText = ""
+						})
+						.padding(.trailing, 7)
+					}
 				}
+				.padding(.horizontal, 10)
+				
+				
+				if searchText != "" {
+					Search(text: searchText)
+				}
+				
+				// MARK: - Menu
+				
 				else {
 					List {
 						Section {
@@ -65,17 +74,20 @@ struct Info: View {
 							}
 							
 							NavigationLink(destination: Instructions()) {
-								Image(systemName: "folder")
+								Image(systemName: "folder.fill")
+									.foregroundColor(.blue)
 								Text("Обязаности")
 							}
 							
 							NavigationLink(destination: Service()) {
-								Image(systemName: "folder")
+								Image(systemName: "folder.fill")
+									.foregroundColor(.orange)
 								Text("ГДЗС")
 							}
 							
 							NavigationLink(destination: Devices()) {
-								Image(systemName: "folder")
+								Image(systemName: "folder.fill")
+									.foregroundColor(.green)
 								Text("СИЗОД")
 							}
 							
@@ -84,15 +96,7 @@ struct Info: View {
 								Text("РТП")
 							}
 							
-							// TEST
-							HStack {
-								Image(systemName: "folder")
-								NavigationLink(destination: Service()) {
-									Text("РТП")
-								}
-							}
 						}
-						
 						
 						Section {
 							
@@ -102,12 +106,12 @@ struct Info: View {
 							}
 							
 							HStack {
-								Image(systemName: "person.crop.circle.badge.plus")
+								Image(systemName: "person.2.circle")
 								Link("БрандМастер в VK", destination: URL(string: "https://vk.com/brmeister")!)
 							}
 							
 							HStack {
-								Image(systemName: "at.badge.plus")
+								Image(systemName: "at")
 								Link("Написать разработчику", destination: URL(string: "mailto:bmasterfire@gmail.com")!)
 							}
 							
@@ -126,8 +130,87 @@ struct Info: View {
 			.gesture(DragGesture().onChanged { _ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
 			.ignoresSafeArea(.keyboard, edges: .bottom)
 		}
+		/*
+		.onTapGesture {
+		self.endEditing(true)
+		self.typing = false
+		}
+		*/
 	}
 }
+
+
+struct SearchTest {
+	var fetchFrom = JSONParser()
+	var array = [String]()
+	
+	init() {
+		for searchText in searchDict().keys {
+			array.append(searchText)
+		}
+	}
+	
+	
+	func searchDict() -> [String: String] {
+		
+		let dict = [
+			"командир звена": 		fetchFrom.json[0].service[0],
+			"газодымозащитник": 	fetchFrom.json[0].service[1],
+			"постовой на посту безопасности": 		fetchFrom.json[0].service[2],
+			
+			"помощник НК": 			fetchFrom.json[0].functional[0],
+			"командир отделения": 	fetchFrom.json[0].functional[1],
+			"пожарный": 			fetchFrom.json[0].functional[2],
+			"водитель ПА": 			fetchFrom.json[0].functional[3],
+			
+			"дежурный по подразделению": 	fetchFrom.json[0].inner[0],
+			"дневальный по гаражу": 		fetchFrom.json[0].inner[1],
+			"дневальный по помещениям": 	fetchFrom.json[0].inner[2],
+			"постовой у фасада": 			fetchFrom.json[0].inner[3],
+			
+			"обслуживание сизод": 		fetchFrom.json[0].maintenance[0],
+			"правила работы в СИЗОД": 	fetchFrom.json[0].maintenance[1],
+			"звено ГДЗС": 				fetchFrom.json[0].maintenance[2],
+			"пост безопасности": 		fetchFrom.json[0].maintenance[2],
+			
+			"минимум оснащения": 	fetchFrom.json[0].maintenance[3],
+			"оснащение звена": 		fetchFrom.json[0].maintenance[3]
+			
+		]
+		
+		return dict
+	}
+	
+	func getText(from: String) -> String {
+		
+		if let text = searchDict()[from] {
+			return text
+		}
+		
+		return "fail"
+	}
+	
+}
+
+struct Search: View {
+	var text: String
+	var search = SearchTest()
+	
+	var body: some View {
+		List {
+			if text != "" {
+				ForEach(search.array.filter{text == "" || $0.hasPrefix(text)}, id:\.self) { searchText in
+					NavigationLink(destination: Display(text: search.getText(from: searchText))) {
+						Text(searchText)
+					}
+				}
+			}
+		}
+		.listStyle(InsetListStyle())
+	}
+	
+}
+
 
 // Обязанности
 struct Instructions: View {
@@ -135,7 +218,9 @@ struct Instructions: View {
 	@ObservedObject var fetchFrom = JSONParser()
 	
 	private var service = ["Командир звена", "Газодымозащитник", "Постовой", "При использовании ДАСК", "При использовании ДАСК"]
+	
 	private var functional = ["Помощник НК", "Командир отделения", "Пожарный", "Водитель ПА"]
+	
 	private var inner = ["Дежурный по подразделению", "Дневальный по гаражу", "Дневальный по помещениям", "Постовой у фасада"]
 	
 	var body: some View {
@@ -144,7 +229,7 @@ struct Instructions: View {
 			Section(header: Text("ГДЗС").frame(height: 50)) {
 				
 				ForEach(0..<service.count) { i in
-					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].service[i])) {
+					NavigationLink(destination: Display(text: fetchFrom.json[0].service[i])) {
 						Image(systemName: "doc.text")
 						Text(service[i])
 					}
@@ -154,7 +239,7 @@ struct Instructions: View {
 			Section(header: Text("Функциональные").frame(height: 50)) {
 				
 				ForEach(0..<functional.count) { i in
-					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].functional[i])) {
+					NavigationLink(destination: Display(text: fetchFrom.json[0].functional[i])) {
 						Image(systemName: "doc.text")
 						Text(functional[i])
 					}
@@ -164,13 +249,14 @@ struct Instructions: View {
 			Section(header: Text("Внутренний наряд").frame(height: 50)) {
 				
 				ForEach(0..<inner.count) { i in
-					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].inner[i])) {
+					NavigationLink(destination: Display(text: fetchFrom.json[0].inner[i])) {
 						Image(systemName: "doc.text")
 						Text(inner[i])
 					}
 				}
 			}
 		}
+		.navigationBarTitle("Обязанности")
 	}
 }
 
@@ -186,7 +272,7 @@ struct Service: View {
 		List {
 			Section {
 				ForEach(0..<service.count) { i in
-					NavigationLink(destination: DisplayText(text: fetchFrom.json[0].maintenance[i])) {
+					NavigationLink(destination: Display(text: fetchFrom.json[0].maintenance[i])) {
 						Image(systemName: "doc.text")
 						Text(service[i])
 					}
@@ -226,16 +312,19 @@ struct Devices: View {
 
 // РТП
 
-struct DisplayText: View {
+struct Display: View {
 	var text: String
 	
 	@State private var fontSize = 20
 	
 	var body: some View {
 		ScrollView {
-			Text(text)
-				.padding()
+			VStack {
+				Text(text)
+					.padding()
+			}
 		}
+		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			Stepper("", value: $fontSize, in: 14...25)
 			//				.disabled(fireStatus == 0)
