@@ -38,7 +38,7 @@ struct CustomNavigationView: UIViewControllerRepresentable {
         // Search bar...
         
         let searchController = UISearchController()
-        searchController.searchBar.placeholder = "Apps, Game"
+        searchController.searchBar.placeholder = "Поиск..."
         
         // setting delegate...
         searchController.searchBar.delegate = context.coordinator
