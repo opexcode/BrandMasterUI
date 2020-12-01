@@ -52,7 +52,7 @@ struct Main: View {
 								
 								Text("Очаг")
 									.font(.headline)
-								
+                                
 								Picker(selection: $fireStatus, label: Text("")) {
 									
 									ForEach(0..<fire.count) { index in

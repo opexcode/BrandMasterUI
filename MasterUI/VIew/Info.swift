@@ -19,7 +19,6 @@ struct Info: View {
 		NavigationView {
 			
 			VStack {
-//				Text("YYYYYYYYY")
 				// MARK: - SearchBar
 
 				HStack {
@@ -62,7 +61,8 @@ struct Info: View {
 				if searchText != "" {
 					Search(text: searchText)
 				}
-				
+                
+                
 				// MARK: - Menu
 				
 				else {
@@ -130,12 +130,6 @@ struct Info: View {
 			.gesture(DragGesture().onChanged { _ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
 			.ignoresSafeArea(.keyboard, edges: .bottom)
 		}
-		/*
-		.onTapGesture {
-		self.endEditing(true)
-		self.typing = false
-		}
-		*/
 	}
 }
 

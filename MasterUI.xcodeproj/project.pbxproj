@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		885A5BAA25761A6D0063BB7F /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A5BA925761A6D0063BB7F /* CustomNavigationView.swift */; };
 		885BD6072567DCED00496E3B /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6052567DCED00496E3B /* Calculations.swift */; };
 		885BD6082567DCED00496E3B /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BD6062567DCED00496E3B /* Parameters.swift */; };
 		885BD60F2567DD2C00496E3B /* airFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 885BD60B2567DD2C00496E3B /* airFoundNew.pdf */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		885A5BA925761A6D0063BB7F /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		885BD6052567DCED00496E3B /* Calculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		885BD6062567DCED00496E3B /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		885BD60B2567DD2C00496E3B /* airFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airFoundNew.pdf; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				88A66CF8255FFC1F006220A2 /* Main.swift */,
 				88A66CFE25600049006220A2 /* Settings.swift */,
 				88CF5F242564AE4200A4683B /* Info.swift */,
+				885A5BA925761A6D0063BB7F /* CustomNavigationView.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				88A66CF9255FFC1F006220A2 /* Main.swift in Sources */,
 				885BD6082567DCED00496E3B /* Parameters.swift in Sources */,
 				885BD6072567DCED00496E3B /* Calculations.swift in Sources */,
+				885A5BAA25761A6D0063BB7F /* CustomNavigationView.swift in Sources */,
 				88A66CEA255F7582006220A2 /* ContentView.swift in Sources */,
 				885BD6182567DD5200496E3B /* UserSettings.swift in Sources */,
 				88A66CFF25600049006220A2 /* Settings.swift in Sources */,
