@@ -190,9 +190,11 @@ struct Settings: View {
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                 }
             }
+            
             .navigationBarTitle("Настройки")
             .padding(-5)
         }
+        .background(Color.gray)
     }
     
 }
