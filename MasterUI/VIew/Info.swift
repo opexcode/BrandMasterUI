@@ -21,6 +21,7 @@ struct Info: View {
             List {
                 ForEach(filteredItems, id: \.self) { item in
                     NavigationLink(destination: Display(text: search.getContent(by: item))) {
+                        Image(systemName: "magnifyingglass")
                         Text(item)
                     }
                 }
@@ -80,7 +81,6 @@ struct Info: View {
                         Link("Политика конфеденциальности", destination: URL(string: "https://alekseyorehov.github.io/BrandMaster/")!)
                     }
                 }
-                .foregroundColor(.primary)
             }
             .listStyle(InsetListStyle())
 //            .listStyle(GroupedListStyle())

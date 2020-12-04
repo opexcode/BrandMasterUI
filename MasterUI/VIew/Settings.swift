@@ -8,23 +8,25 @@
 import SwiftUI
 
 /*
-enum DeviceType: String, CaseIterable, Identifiable {
-    var id: String { self.rawValue }
-    
-    case air
-    case oxy
-}
-
-enum MeasureType: String, CaseIterable, Identifiable {
-    var id: String { self.rawValue }
-    
-    case kgc
-    case mpa
-}
-*/
+ enum DeviceType: String, CaseIterable, Identifiable {
+ var id: String { self.rawValue }
+ 
+ case air
+ case oxy
+ }
+ 
+ enum MeasureType: String, CaseIterable, Identifiable {
+ var id: String { self.rawValue }
+ 
+ case kgc
+ case mpa
+ }
+ */
 
 
 struct Settings: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var isOnAccuracy = false
     @State private var isOnSignal = true
@@ -41,7 +43,7 @@ struct Settings: View {
     var body: some View {
         NavigationView {
             
-            Form {
+            List {
                 
                 // Section 0
                 Section(footer: Text("")) {
@@ -96,7 +98,7 @@ struct Settings: View {
                 }
                 
                 // Section 1
-                Section(header: Text("Параметры сизод")) {
+                Section(header: Header()) {
                     
                     Group {
                         // Вместимость баллона
@@ -131,6 +133,8 @@ struct Settings: View {
                                     
                                     ValueField()
                                 }
+                                
+                                Divider()
                                 
                                 // Коэффициент сжатия воздуха
                                 
@@ -173,8 +177,9 @@ struct Settings: View {
                                 Text("Сигнал")
                                     .font(.system(size: 17, weight: .semibold))
                                 
-                                Text("Давление срабатывания сигнала (кгс/см\u{00B2})")
+                                Text("Давление для сигнала (кгс/см\u{00B2})")
                                     .font(.system(size: 14, weight: .light))
+                                    .lineLimit(1)
                             }
                             
                             ValueField()
@@ -190,17 +195,27 @@ struct Settings: View {
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                 }
             }
-            
+            .listStyle(GroupedListStyle())
             .navigationBarTitle("Настройки")
-            .padding(-5)
+//            .padding(-5)
         }
-        .background(Color.gray)
     }
     
 }
 
 
-
+struct Header: View {
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "wrench.and.screwdriver")
+            Text("Параметры СИЗОД")
+        }
+        
+        .font(Font.custom("AppleSDGothicNeo-Regular", size: 16))
+//        .foregroundColor(colorScheme != .dark ? Color.black : Color(UIColor.systemBackground))
+    }
+}
 
 struct ValueField: View {
     @State private var fieldValue: String = ""

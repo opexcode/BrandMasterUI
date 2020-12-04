@@ -13,22 +13,18 @@ struct ContentView: View {
         TabView() {
             Main()
                 .tabItem({
-                    
                     Image(systemName: "flame")
                     Text("Расчеты")
                 })
             
             Settings()
                 .tabItem({
-                    
                     Image(systemName: "gearshape")
                     Text("Настройки")
                 })
             
             InfoShell()
-                
                 .tabItem({
-                    
                     Image(systemName: "bookmark")
                     Text("Инфо")
                 })
