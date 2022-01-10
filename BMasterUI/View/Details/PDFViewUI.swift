@@ -27,8 +27,6 @@ struct PDFViewUI: UIViewRepresentable {
 		return pdfView
 	}
 
-	func updateUIView(_ uiView: UIView, context: Context) {
-		// Empty
-	}
+	func updateUIView(_ uiView: UIView, context: Context) { }
 
 }

@@ -13,12 +13,12 @@ final class PDFCreator: NSObject {
 
     // MARK: - Private Properties
    let compute: Calculations
-   var parameters: Parameters
+   var vm: Parameters
    
    
    
    init(parameters: Parameters) {
-      self.parameters = parameters
+      self.vm = parameters
       self.compute = Calculations(parameters: parameters)
       print("PDFCreator init")
    }
@@ -59,99 +59,68 @@ final class PDFCreator: NSObject {
 	}
 //
    func getIndex() -> Int {
-      guard let max = parameters.fallPressureData.max() else { return 0 }
-      guard let index = parameters.fallPressureData.firstIndex(of: max) else { return 0 }
+      guard let max = vm.fallPressureData.max() else { return 0 }
+      guard let index = vm.fallPressureData.firstIndex(of: max) else { return 0 }
       return index
    }
     // MARK: - Private Methods
 
     private func PDFdataFormatter() {
-       capacity = String(parameters.deviceSettings.airVolume)
-       airIndex = String(parameters.deviceSettings.airIndex)
+       capacity = String(vm.deviceSettings.airVolume)
+       airIndex = String(vm.deviceSettings.airIndex)
 
-        switch parameters.appSettings.measureType {
+        switch vm.appSettings.measureType {
             case .kgc:
                 value = "кгс/см\u{00B2}"
-              minEnterPressure = String(Int(parameters.workConditions.startPressure.min()!))
-              minFirePressure = String(Int(parameters.workConditions.firePressure.min()!))
-              minValue = String(Int(parameters.workConditions.minValue))
-              reductor = String(Int(parameters.deviceSettings.reductorPressure))
-              airRate = String(Int(parameters.deviceSettings.airRate))
-                maxFallPresure = String(Int(parameters.fallPressureData.max()!))
-                airFlow = String(Int(parameters.airFlow))
-              startPressure = String(Int(parameters.workConditions.startPressure[index]))
-              firePressure = String(Int(parameters.workConditions.firePressure[index]))
+              minEnterPressure = String(Int(vm.workConditions.startPressure.min()!))
+              minFirePressure = String(Int(vm.workConditions.firePressure.min()!))
+              minValue = String(Int(vm.workConditions.minValue))
+              reductor = String(Int(vm.deviceSettings.reductorPressure))
+              airRate = String(Int(vm.deviceSettings.airRate))
+                maxFallPresure = String(Int(vm.fallPressureData.max()!))
+                airFlow = String(Int(vm.airFlow))
+              startPressure = String(Int(vm.workConditions.startPressure[index]))
+              firePressure = String(Int(vm.workConditions.firePressure[index]))
 
             case .mpa:
                 value = "МПа"
-              minEnterPressure = String(parameters.workConditions.startPressure.min()!)
-              minFirePressure = String(parameters.workConditions.startPressure.min()!)
-              minValue = String(parameters.workConditions.minValue)
-              reductor = String(parameters.deviceSettings.reductorPressure)
-              airRate = String(parameters.deviceSettings.airRate)
-                maxFallPresure = String(format:"%.1f", parameters.fallPressureData.max()!)
-                airFlow = String(parameters.airFlow)
-              startPressure = String(parameters.workConditions.startPressure[index])
-              firePressure = String(parameters.workConditions.firePressure[index])
+              minEnterPressure = String(vm.workConditions.startPressure.min()!)
+              minFirePressure = String(vm.workConditions.startPressure.min()!)
+              minValue = String(vm.workConditions.minValue)
+              reductor = String(vm.deviceSettings.reductorPressure)
+              airRate = String(vm.deviceSettings.airRate)
+                maxFallPresure = String(format:"%.1f", vm.fallPressureData.max()!)
+                airFlow = String(vm.airFlow)
+              startPressure = String(vm.workConditions.startPressure[index])
+              firePressure = String(vm.workConditions.firePressure[index])
         }
     }
 
 
     // MARK: - Public Methods
 
-    // PDF-страница с примечаниями
-    func marksViewer() -> Data{
-        let pdfMetaData = [
-            kCGPDFContextCreator: "Brandmaster",
-            kCGPDFContextAuthor: "Aleksey Orekhov"
-        ]
-        format.documentInfo = pdfMetaData as [String: Any]
-        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-        let data = renderer.pdfData { (context) in
-            context.beginPage()
-            let context = context.cgContext
-
-            // Подставляем PDF шаблон с формулами
-            let path = Bundle.main.path(forResource: "Marks", ofType: "pdf")!
-            let url = URL(fileURLWithPath: path)
-            let document = CGPDFDocument(url as CFURL)
-            // Количество страниц
-            let page = document?.page(at: 1)
-            UIColor.white.set()
-            context.translateBy(x: 0.0, y: pageRect.size.height)
-            context.scaleBy(x: 1.0, y: -1.0)
-            context.drawPDFPage(page!)
-        }
-        return data
-    }
-
-
     // Метод генерирует лист А4 c расчетами если очаг пожара найден.
     func generateForSearch() -> Data {
-        
-
         // 1) Расчет общего времени работы (Тобщ)
-       let totalTime = compute.totalTimeCalculation(minPressure: parameters.workConditions.startPressure)
+       let totalTime = compute.totalTimeCalculation(minPressure: vm.workConditions.startPressure)
         // 2) Расчет ожидаемого времени возвращения звена из НДС (Твозв)
-       let expectedTime = compute.expectedTimeCalculation(inputTime: parameters.workConditions.startTime, totalTime: totalTime)
+       let expectedTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.startTime, totalTime: totalTime)
         // 3) Расчет давления для выхода (Рк.вых)
-       let exitPressure = compute.exitPressureCalculation(maxDrop: parameters.fallPressureData, hardChoice: parameters.workConditions.hardWork)
+       let exitPressure = compute.exitPressureCalculation(maxDrop: vm.fallPressureData, hardChoice: vm.workConditions.hardWork)
         // Pквых округлям при кгс и не меняем при МПа
-       var exitPString = parameters.appSettings.measureType == .kgc ? String(Int(exitPressure)) : String(format:"%.1f", floor(exitPressure * 10) / 10)
+       var exitPString = vm.appSettings.measureType == .kgc ? String(Int(exitPressure)) : String(format:"%.1f", floor(exitPressure * 10) / 10)
 
 
-       if parameters.appSettings.isOnSignal {
-          if exitPressure == parameters.deviceSettings.airSignal {
-             parameters.appSettings.airSignalFlag = true //!
+       if vm.appSettings.isOnSignal {
+          if exitPressure == vm.deviceSettings.airSignal {
+             vm.appSettings.airSignalFlag = true //!
             }
         }
 
         // 4) Расчет времени работы у очага (Траб)
-       let workTime = compute.workTimeCalculation(minPressure: parameters.workConditions.firePressure, exitPressure: exitPressure)
+       let workTime = compute.workTimeCalculation(minPressure: vm.workConditions.firePressure, exitPressure: exitPressure)
         // 5) Время подачи команды постовым на выход звена
-       let  exitTime = compute.expectedTimeCalculation(inputTime: parameters.workConditions.fireTime, totalTime: workTime)
+       let  exitTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.fireTime, totalTime: workTime)
 
         PDFdataFormatter()
 
@@ -172,7 +141,7 @@ final class PDFCreator: NSObject {
             string.draw(at: CGPoint(x: 310, y: 184), withAttributes: large)
 
             // 1
-           switch parameters.appSettings.deviceType {
+           switch vm.appSettings.deviceType {
                 case .air:
                     string = "\(airRate) * K"
                     string.draw(at: CGPoint(x: 170, y: 289), withAttributes: large)
@@ -194,17 +163,17 @@ final class PDFCreator: NSObject {
             //2
             let time = DateFormatter()
             time.dateFormat = "HH"
-           string = "\(time.string(from: parameters.workConditions.startTime))    +    = \(expectedTime)"
+           string = "\(time.string(from: vm.workConditions.startTime))    +    = \(expectedTime)"
             string.draw(at: CGPoint(x: 320, y: 371), withAttributes: large)
 
             time.dateFormat = "mm"
-           string = "\(time.string(from: parameters.workConditions.startTime))     \(Int(totalTime))"
+           string = "\(time.string(from: vm.workConditions.startTime))     \(Int(totalTime))"
             string.draw(at: CGPoint(x: 340, y: 368), withAttributes: small)
 
 
             // 3
             var formulaPat = ""    // шаблон
-           if parameters.workConditions.hardWork {
+           if vm.workConditions.hardWork {
                 formulaPat = "P        = 2 * P            + P         "
                 formulaPat.draw(at: CGPoint(x: 90, y: 478), withAttributes: bold)
                 formulaPat = "к. вых                 макс. пад           уст. раб"
@@ -222,17 +191,17 @@ final class PDFCreator: NSObject {
                 string.draw(at: CGPoint(x: 344, y: 478), withAttributes: large)
             }
 
-           if parameters.appSettings.airSignalFlag {
-              exitPString = parameters.appSettings.measureType == .kgc ? String(Int(parameters.deviceSettings.airSignal)) : String(format:"%.1f", floor(parameters.deviceSettings.airSignal * 10) / 10)
+           if vm.appSettings.airSignalFlag {
+              exitPString = vm.appSettings.measureType == .kgc ? String(Int(vm.deviceSettings.airSignal)) : String(format:"%.1f", floor(vm.deviceSettings.airSignal * 10) / 10)
 
                 let signal = "\(exitPString) \(value)"
                 signal.draw(at: CGPoint(x: 480, y: 514), withAttributes: large)
             }
 
             // 4
-           let someValue = parameters.appSettings.airSignalFlag ? 36 : 0
+           let someValue = vm.appSettings.airSignalFlag ? 36 : 0
 
-           switch parameters.appSettings.deviceType {
+           switch vm.appSettings.deviceType {
                 case .air:
                     string = "\(airRate) * K"
                     string.draw(at: CGPoint(x: 180, y: 582+someValue), withAttributes: large)
@@ -253,15 +222,15 @@ final class PDFCreator: NSObject {
 
             // 5
             time.dateFormat = "HH"
-           string = "\(time.string(from: parameters.workConditions.fireTime))    +    = \(exitTime)"
+           string = "\(time.string(from: vm.workConditions.fireTime))    +    = \(exitTime)"
             string.draw(at: CGPoint(x: 310, y: 686+someValue), withAttributes: large)
 
             time.dateFormat = "mm"
-           string = "\(time.string(from: parameters.workConditions.fireTime))     \(Int(workTime))"
+           string = "\(time.string(from: vm.workConditions.fireTime))     \(Int(workTime))"
             string.draw(at: CGPoint(x: 330, y: 681+someValue), withAttributes: small)
 
             // Имя файла PDF-шаблона
-           let fileName = parameters.appSettings.airSignalFlag ? "signal" : "airFoundNew"
+           let fileName = vm.appSettings.airSignalFlag ? "signal" : "airFoundNew"
 			print(fileName)
 
             let path = Bundle.main.path(forResource: fileName, ofType: "pdf")
@@ -281,26 +250,26 @@ final class PDFCreator: NSObject {
     /// Метод генерирует лист А4 c расчетами если очаг пожара не найден.
     func generateForFire() -> Data {
         // 1) Расчет максимального возможного падения давления при поиске очага
-       let maxDrop = compute.maxDropCalculation(minPressure: parameters.workConditions.minValue, hardChoice: parameters.workConditions.hardWork)
+       let maxDrop = compute.maxDropCalculation(minPressure: vm.workConditions.minValue, hardChoice: vm.workConditions.hardWork)
         // 2) Расчет давления к выходу
-       let exitPressure = compute.exitPressureCalculation(minPressure: parameters.workConditions.minValue, maxDrop: maxDrop)
+       let exitPressure = compute.exitPressureCalculation(minPressure: vm.workConditions.minValue, maxDrop: maxDrop)
 
         // 3) Расчет промежутка времени с вкл. до подачи команды дТ
         let timeDelta = compute.deltaTimeCalculation(maxDrop: maxDrop)
 
         // 4) Расчет контрольного времени подачи команды постовым на возвращение звена  (Тк.вых)
-       let exitTime = compute.expectedTimeCalculation(inputTime: parameters.workConditions.startTime, totalTime: timeDelta)
+       let exitTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.startTime, totalTime: timeDelta)
 
         // Максимальное падение давления
-       let maxDropString = parameters.appSettings.measureType == .kgc ? (String(Int(maxDrop))) : (String(format:"%.1f", floor(maxDrop * 10) / 10))
+       let maxDropString = vm.appSettings.measureType == .kgc ? (String(Int(maxDrop))) : (String(format:"%.1f", floor(maxDrop * 10) / 10))
 
         // Давление к выходу
-       let exitPString = parameters.appSettings.measureType == .kgc ? (String(Int(exitPressure))) : (String(format:"%.1f", exitPressure))
+       let exitPString = vm.appSettings.measureType == .kgc ? (String(Int(exitPressure))) : (String(format:"%.1f", exitPressure))
 
         // Коэффициент, учитывающий необходимый запас воздуха
         var ratio: String
         // при сложных условиях = 3, при простых = 2.5
-       parameters.workConditions.hardWork ? (ratio = "3") : (ratio = "2.5")
+       vm.workConditions.hardWork ? (ratio = "3") : (ratio = "2.5")
 
         PDFdataFormatter()
 
@@ -328,7 +297,7 @@ final class PDFCreator: NSObject {
             print.draw(at: CGPoint(x: 350, y: 330), withAttributes: large)
 
             // 3
-           switch parameters.appSettings.deviceType {
+           switch vm.appSettings.deviceType {
                 case .air:
                     print = "\(airRate) * K                  \(airRate) * \(airIndex)"
                     print.draw(at: CGPoint(x: 172, y: 485), withAttributes: large)
@@ -348,11 +317,11 @@ final class PDFCreator: NSObject {
             //4
             let time = DateFormatter()
             time.dateFormat = "HH"
-           print = "\(time.string(from: parameters.workConditions.startTime))    +    = \(exitTime)"
+           print = "\(time.string(from: vm.workConditions.startTime))    +    = \(exitTime)"
             print.draw(at: CGPoint(x: 313, y: 590), withAttributes: large)
 
             time.dateFormat = "mm"
-           time.string(from: parameters.workConditions.startTime).draw(at: CGPoint(x: 333, y: 585), withAttributes: small)
+           time.string(from: vm.workConditions.startTime).draw(at: CGPoint(x: 333, y: 585), withAttributes: small)
             String(Int(timeDelta)).draw(at: CGPoint(x: 360, y: 585), withAttributes: small)
 
             // Подставляем PDF шаблон с формулами

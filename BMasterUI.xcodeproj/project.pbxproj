@@ -14,7 +14,7 @@
 		443311AD26E44F320043EC38 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311A826E44F320043EC38 /* MainView.swift */; };
 		443311B026E451120043EC38 /* MySwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311AF26E451120043EC38 /* MySwitcher.swift */; };
 		443311B326E464EE0043EC38 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311B226E464EE0043EC38 /* Parameters.swift */; };
-		443311B526E4707F0043EC38 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311B426E4707F0043EC38 /* AppModel.swift */; };
+		443311B526E4707F0043EC38 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311B426E4707F0043EC38 /* DataModels.swift */; };
 		449CB0C4270357EE0094C7DA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CB0C3270357EE0094C7DA /* SettingsView.swift */; };
 		449CB0C72703E94F0094C7DA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CB0C62703E94F0094C7DA /* Utilities.swift */; };
 		449CB0C92703E9670094C7DA /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443311A226E44E9D0043EC38 /* JSONParser.swift */; };
@@ -28,9 +28,17 @@
 		44F3DF0427032D5100A11392 /* airNotFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0027032D5100A11392 /* airNotFoundNew.pdf */; };
 		44F3DF0527032D5100A11392 /* Marks.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0127032D5100A11392 /* Marks.pdf */; };
 		8A0180DC27367973009496DB /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0180DB27367973009496DB /* TextViewer.swift */; };
-		8AB9BD4A276330DF00AFA63C /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9BD49276330DF00AFA63C /* KeyboardToolbar.swift */; };
+		8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23002B278707FF00F9280A /* CustomTextField.swift */; };
+		8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */; };
+		8A5537CF278A828F00ADC319 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537CE278A828F00ADC319 /* DevicesView.swift */; };
+		8A5537D1278A848900ADC319 /* LeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D0278A848900ADC319 /* LeaderView.swift */; };
+		8A5537D3278A84EB00ADC319 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D2278A84EB00ADC319 /* InstructionsView.swift */; };
+		8A5537D5278A852B00ADC319 /* SmokeServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D4278A852B00ADC319 /* SmokeServiceView.swift */; };
+		8A93D4F027885AF6007BBF04 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93D4EF27885AF6007BBF04 /* Settings.swift */; };
+		8AC798B5278BBC47009D9B9C /* MailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC798B4278BBC47009D9B9C /* MailComposeView.swift */; };
+		8AC798B9278BD3A3009D9B9C /* DeviceFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC798B8278BD3A3009D9B9C /* DeviceFeatures.swift */; };
 		8ACFA61F273238FA00B0934B /* MarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACFA61E273238FA00B0934B /* MarksView.swift */; };
-		8AF8D5C627313C830083BF3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF8D5C527313C830083BF3F /* InfoView.swift */; };
+		8AF8D5C627313C830083BF3F /* InfoShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF8D5C527313C830083BF3F /* InfoShell.swift */; };
 		8AF8D5C8273140E70083BF3F /* infoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AF8D5C7273140E70083BF3F /* infoData.json */; };
 		8AF8D5CA273157670083BF3F /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF8D5C9273157670083BF3F /* CustomNavigationView.swift */; };
 		8AF8D5CD2731584A0083BF3F /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF8D5CC2731584A0083BF3F /* Search.swift */; };
@@ -47,8 +55,8 @@
 		443311A426E44ED40043EC38 /* CodableBundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableBundleExtension.swift; sourceTree = "<group>"; };
 		443311A826E44F320043EC38 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		443311AF26E451120043EC38 /* MySwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySwitcher.swift; sourceTree = "<group>"; };
-		443311B226E464EE0043EC38 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Parameters.swift; path = ../Parameters.swift; sourceTree = "<group>"; };
-		443311B426E4707F0043EC38 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		443311B226E464EE0043EC38 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		443311B426E4707F0043EC38 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		449CB0C3270357EE0094C7DA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		449CB0C62703E94F0094C7DA /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		44D9E33D272678E2005B6C32 /* SimpleSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSolutionView.swift; sourceTree = "<group>"; };
@@ -61,9 +69,17 @@
 		44F3DF0027032D5100A11392 /* airNotFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airNotFoundNew.pdf; sourceTree = "<group>"; };
 		44F3DF0127032D5100A11392 /* Marks.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Marks.pdf; sourceTree = "<group>"; };
 		8A0180DB27367973009496DB /* TextViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
-		8AB9BD49276330DF00AFA63C /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
+		8A23002B278707FF00F9280A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPDFCreator.swift; sourceTree = "<group>"; };
+		8A5537CE278A828F00ADC319 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
+		8A5537D0278A848900ADC319 /* LeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderView.swift; sourceTree = "<group>"; };
+		8A5537D2278A84EB00ADC319 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
+		8A5537D4278A852B00ADC319 /* SmokeServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeServiceView.swift; sourceTree = "<group>"; };
+		8A93D4EF27885AF6007BBF04 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		8AC798B4278BBC47009D9B9C /* MailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeView.swift; sourceTree = "<group>"; };
+		8AC798B8278BD3A3009D9B9C /* DeviceFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFeatures.swift; sourceTree = "<group>"; };
 		8ACFA61E273238FA00B0934B /* MarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksView.swift; sourceTree = "<group>"; };
-		8AF8D5C527313C830083BF3F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		8AF8D5C527313C830083BF3F /* InfoShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoShell.swift; sourceTree = "<group>"; };
 		8AF8D5C7273140E70083BF3F /* infoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = infoData.json; sourceTree = "<group>"; };
 		8AF8D5C9273157670083BF3F /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		8AF8D5CC2731584A0083BF3F /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -100,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				4433119E26E44E9D0043EC38 /* Model */,
+				8AFC7BE22787E97D00811DAD /* ViewModels */,
 				4433119826E44E6D0043EC38 /* View */,
 				449CB0C82703E9540094C7DA /* Utilities */,
 				443311A326E44ED40043EC38 /* Extension */,
@@ -146,10 +163,10 @@
 		4433119E26E44E9D0043EC38 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				443311B426E4707F0043EC38 /* AppModel.swift */,
-				443311B226E464EE0043EC38 /* Parameters.swift */,
+				443311B426E4707F0043EC38 /* DataModels.swift */,
 				44F3DEFC2702E01900A11392 /* Calculations.swift */,
 				44F3DEFA2702DFFE00A11392 /* PDFCreator.swift */,
+				8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */,
 				8AF8D5CC2731584A0083BF3F /* Search.swift */,
 			);
 			path = Model;
@@ -175,8 +192,10 @@
 		449CB0C5270358160094C7DA /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				44F3DEF22702D14800A11392 /* PDFViewUI.swift */,
 				8AF8D5C9273157670083BF3F /* CustomNavigationView.swift */,
+				8A23002B278707FF00F9280A /* CustomTextField.swift */,
+				8AC798B4278BBC47009D9B9C /* MailComposeView.swift */,
+				44F3DEF22702D14800A11392 /* PDFViewUI.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -186,9 +205,17 @@
 			children = (
 				449CB0C62703E94F0094C7DA /* Utilities.swift */,
 				443311A226E44E9D0043EC38 /* JSONParser.swift */,
-				8AB9BD49276330DF00AFA63C /* KeyboardToolbar.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8A5537D6278A856D00ADC319 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				8ACFA61E273238FA00B0934B /* MarksView.swift */,
+				8A0180DB27367973009496DB /* TextViewer.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		8ACF919627519E960067678B /* Settings */ = {
@@ -202,9 +229,13 @@
 		8ACFA6202732391700B0934B /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				8AF8D5C527313C830083BF3F /* InfoView.swift */,
-				8ACFA61E273238FA00B0934B /* MarksView.swift */,
-				8A0180DB27367973009496DB /* TextViewer.swift */,
+				8AF8D5C527313C830083BF3F /* InfoShell.swift */,
+				8A5537D2278A84EB00ADC319 /* InstructionsView.swift */,
+				8A5537D4278A852B00ADC319 /* SmokeServiceView.swift */,
+				8A5537CE278A828F00ADC319 /* DevicesView.swift */,
+				8AC798B8278BD3A3009D9B9C /* DeviceFeatures.swift */,
+				8A5537D0278A848900ADC319 /* LeaderView.swift */,
+				8A5537D6278A856D00ADC319 /* Details */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -218,6 +249,15 @@
 				443311AF26E451120043EC38 /* MySwitcher.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		8AFC7BE22787E97D00811DAD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				443311B226E464EE0043EC38 /* Parameters.swift */,
+				8A93D4EF27885AF6007BBF04 /* Settings.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +276,8 @@
 			dependencies = (
 			);
 			name = BMasterUI;
+			packageProductDependencies = (
+			);
 			productName = BMasterUI;
 			productReference = 4433118626E44E500043EC38 /* BMasterUI.app */;
 			productType = "com.apple.product-type.application";
@@ -263,6 +305,8 @@
 				Base,
 			);
 			mainGroup = 4433117D26E44E500043EC38;
+			packageReferences = (
+			);
 			productRefGroup = 4433118726E44E500043EC38 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -297,22 +341,30 @@
 				443311B026E451120043EC38 /* MySwitcher.swift in Sources */,
 				443311B326E464EE0043EC38 /* Parameters.swift in Sources */,
 				44F3DEF92702DFD300A11392 /* FullSolutionView.swift in Sources */,
-				443311B526E4707F0043EC38 /* AppModel.swift in Sources */,
+				8A5537D1278A848900ADC319 /* LeaderView.swift in Sources */,
+				443311B526E4707F0043EC38 /* DataModels.swift in Sources */,
+				8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */,
 				8AF8D5CD2731584A0083BF3F /* Search.swift in Sources */,
 				449CB0C92703E9670094C7DA /* JSONParser.swift in Sources */,
 				4433118C26E44E500043EC38 /* ContentView.swift in Sources */,
 				8ACFA61F273238FA00B0934B /* MarksView.swift in Sources */,
 				44F3DEFD2702E01A00A11392 /* Calculations.swift in Sources */,
+				8A5537CF278A828F00ADC319 /* DevicesView.swift in Sources */,
 				449CB0C72703E94F0094C7DA /* Utilities.swift in Sources */,
 				44F3DEF32702D14800A11392 /* PDFViewUI.swift in Sources */,
 				4433118A26E44E500043EC38 /* BMasterUIApp.swift in Sources */,
 				443311AD26E44F320043EC38 /* MainView.swift in Sources */,
 				8AF8D5CA273157670083BF3F /* CustomNavigationView.swift in Sources */,
 				44D9E33E272678E2005B6C32 /* SimpleSolutionView.swift in Sources */,
+				8AC798B9278BD3A3009D9B9C /* DeviceFeatures.swift in Sources */,
+				8A5537D5278A852B00ADC319 /* SmokeServiceView.swift in Sources */,
 				44F3DEFB2702DFFE00A11392 /* PDFCreator.swift in Sources */,
-				8AB9BD4A276330DF00AFA63C /* KeyboardToolbar.swift in Sources */,
-				8AF8D5C627313C830083BF3F /* InfoView.swift in Sources */,
+				8AF8D5C627313C830083BF3F /* InfoShell.swift in Sources */,
+				8A93D4F027885AF6007BBF04 /* Settings.swift in Sources */,
+				8A5537D3278A84EB00ADC319 /* InstructionsView.swift in Sources */,
 				449CB0C4270357EE0094C7DA /* SettingsView.swift in Sources */,
+				8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */,
+				8AC798B5278BBC47009D9B9C /* MailComposeView.swift in Sources */,
 				8A0180DC27367973009496DB /* TextViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,7 +503,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = opexcode.BMasterUI;
+				PRODUCT_BUNDLE_IDENTIFIER = "Alexey-Orekhov.FireCalculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -473,7 +525,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = opexcode.BMasterUI;
+				PRODUCT_BUNDLE_IDENTIFIER = "Alexey-Orekhov.FireCalculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

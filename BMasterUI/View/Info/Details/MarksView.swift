@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MarksView: View {
-   @EnvironmentObject var parameters: Parameters
-   
    @State var orientation = UIDevice.current.orientation
    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
       .makeConnectable()
@@ -17,7 +15,7 @@ struct MarksView: View {
    
    
    var body: some View {
-      let pdf = PDFCreator(parameters: parameters)
+      let pdf = MarksPDFCreator()
       
       PDFViewUI(data: pdf.marksViewer())
          .edgesIgnoringSafeArea(.all)
@@ -26,7 +24,7 @@ struct MarksView: View {
          .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                Button(action: {
-                  actionSheet(data: parameters.workConditions.fireStatus ? pdf.generateForSearch() : pdf.generateForFire())
+                   actionSheet(data: pdf.marksViewer())
                }) {
                   Image(systemName: "square.and.arrow.up")
                }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Условия работы звена
-struct WorkСonditions {
+struct WorkСonditions: Codable {
     var fireStatus: Bool
     var hardWork: Bool
     var startTime: Date
@@ -20,7 +20,7 @@ struct WorkСonditions {
 }
 
 /// Настройки дыхательного аппарата
-struct DeviceSettings {
+struct DeviceSettings: Codable {
     var airVolume: Double
     var airRate: Double
     var airIndex: Double
@@ -29,11 +29,11 @@ struct DeviceSettings {
 }
 
 /// Настройки приложения
-struct AppSettings {
+struct AppSettings: Codable {
     var deviceType: DeviceType
     var measureType: MeasureType
     var isOnSignal: Bool
     var solutionType: Bool
     var airSignalFlag: Bool
-    var fontSize: Int? = nil
+//    var fontSize: Int? = nil
 }

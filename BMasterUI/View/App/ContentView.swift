@@ -22,16 +22,17 @@ struct ContentView: View {
 //
 //      UINavigationBar.appearance().tintColor = .systemBlue
 //   }
+    @StateObject var vm = Parameters()
     
     var body: some View {
         TabView() {
-            MainView()
+            MainView(vm: vm)
                 .tabItem({
                     Image(systemName: "flame")
                     Text("Расчеты")
                 })
             
-            SettingsView()
+            SettingsView(vm: vm)
                 .tabItem({
                     Image(systemName: "gearshape")
                     Text("Настройки")
@@ -45,6 +46,9 @@ struct ContentView: View {
                 })
             
         } //: TabView
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+            vm.saveSettings()
+        }
     }
 }
 

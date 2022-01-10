@@ -16,8 +16,6 @@ extension UIApplication {
 }
 
 
-
-
 extension String {
 
     var length: Int {
@@ -63,6 +61,8 @@ extension String {
 }
 
 
+
+
 // Автоматически подставляем точку в double значения
 extension String {
     func separate(every stride: Int = 4, with separator: Character = " ") -> String {
@@ -90,7 +90,7 @@ func checkTextField(type: MeasureType, value: inout String, newValue: String) {
             
         case .mpa:
             
-            let separator = ","
+            let separator =  Locale.current.decimalSeparator!
             
             if newValue.isEmpty {
                 value = "0"
@@ -102,10 +102,10 @@ func checkTextField(type: MeasureType, value: inout String, newValue: String) {
                 }
             }
             // Допускаем ввод разделителя только если он отсутствует в значении
-            else if newValue[newValue.count-1] == separator {
+            else if newValue.last == Character(separator) {
                 let oldValue = newValue.dropLast()
                 if oldValue.contains(separator) {
-                    value = String(newValue.dropLast())
+                    value = String(oldValue) //String(newValue.dropLast())
                 }
             }
             // Ограничиваем длину значения
@@ -115,13 +115,23 @@ func checkTextField(type: MeasureType, value: inout String, newValue: String) {
             // Подставляем точку автоматически
             else if newValue.count == 3 && !newValue.contains(separator)  {
                 let last = newValue[newValue.count-1]
-                if last != separator && last != "." {
+                if last != separator && last != separator {
                     value = newValue.dropLast() + separator + last
                 }
             }
             // Ограничиваем величину значения
             else if newValue.doubleValue > 35.0 {
                 value = "35\(separator)0"
+            }
+            
+            if newValue.last == Character(separator) {
+                let oldValue = newValue.dropLast()
+                if oldValue.contains(separator) {
+                    value = String(oldValue) //String(newValue.dropLast())
+                }
+            }
+            if newValue.count > 4 {
+                value = String(newValue.dropLast())
             }
     }
 }
