@@ -25,6 +25,15 @@ enum SolutionType {
     case simple
 }
 
+/*
+ @Published var items = [ExpenseItem]() {
+ didSet {
+ if let encoded = try? JSONEncoder().encode(items) {
+ UserDefaults.standard.set(encoded, forKey: "Items")
+ }
+ }
+ }
+ */
 
 class Parameters: ObservableObject {
     
@@ -36,15 +45,26 @@ class Parameters: ObservableObject {
                                                    startPressure: [300.0, 300.0, 300.0, 300.0, 300.0],
                                                    firePressure: [250.0, 250.0, 250.0, 250.0, 250.0],
                                                    minValue: 300.0,
-                                                   teamSize: 3)
+                                                   teamSize: 3) {
+        didSet {
+            if let ecoded = try? JSONEncoder().encode(workConditions) {
+                UserDefaults.standard.set(ecoded, forKey: "workConditions")
+            }
+        }
+    }
     
     
     // MARK: - Настройки приложения
     @Published var appSettings = AppSettings(deviceType: DeviceType.air,
                                              measureType: MeasureType.kgc,
                                              isOnSignal: true,
-                                             solutionType: false,
-                                             airSignalFlag: false)
+                                             solutionType: false) {
+        didSet {
+            if let ecoded = try? JSONEncoder().encode(appSettings) {
+                UserDefaults.standard.set(ecoded, forKey: "appSettings")
+            }
+        }
+    }
     
     
     // MARK: - Настройки дыхательного аппарата
@@ -52,7 +72,14 @@ class Parameters: ObservableObject {
                                                    airRate: 40.0,
                                                    airIndex: 1.1,
                                                    reductorPressure: 10.0,
-                                                   airSignal: 55.0)
+                                                   airSignal: 55.0) {
+        didSet {
+            if let ecoded = try? JSONEncoder().encode(deviceSettings) {
+                UserDefaults.standard.set(ecoded, forKey: "deviceSettings")
+            }
+        }
+    }
+    
     
     
     init() {
@@ -163,20 +190,20 @@ class Parameters: ObservableObject {
         print("obtainDeviceSettings")
         var airVolume, airRate, airIndex, reductorPressure, airSignal: String
         
-//        let separator = Locale.current.decimalSeparator!
+        let separator = Locale.current.decimalSeparator!
         switch appSettings.measureType {
             case .kgc:
-                airVolume =        String(deviceSettings.airVolume)
-                airRate =          String(Int(deviceSettings.airRate))
-                airIndex =         String(deviceSettings.airIndex)
-                reductorPressure = String(Int(deviceSettings.reductorPressure))
-                airSignal =        String(Int(deviceSettings.airSignal))
+                airVolume =        String(deviceSettings.airVolume).replacingOccurrences(of: ".", with: separator)
+                airRate =          String(Int(deviceSettings.airRate)).replacingOccurrences(of: ".", with: separator)
+                airIndex =         String(deviceSettings.airIndex).replacingOccurrences(of: ".", with: separator)
+                reductorPressure = String(Int(deviceSettings.reductorPressure)).replacingOccurrences(of: ".", with: separator)
+                airSignal =        String(Int(deviceSettings.airSignal)).replacingOccurrences(of: ".", with: separator)
             case .mpa:
-                airVolume =        String(deviceSettings.airVolume)
-                airRate =          String(deviceSettings.airRate)
-                airIndex =         String(deviceSettings.airIndex)
-                reductorPressure = String(deviceSettings.reductorPressure)
-                airSignal =        String(deviceSettings.airSignal)
+                airVolume =        String(deviceSettings.airVolume).replacingOccurrences(of: ".", with: separator)
+                airRate =          String(deviceSettings.airRate).replacingOccurrences(of: ".", with: separator)
+                airIndex =         String(deviceSettings.airIndex).replacingOccurrences(of: ".", with: separator)
+                reductorPressure = String(deviceSettings.reductorPressure).replacingOccurrences(of: ".", with: separator)
+                airSignal =        String(deviceSettings.airSignal).replacingOccurrences(of: ".", with: separator)
         }
         
         return (airVolume, airRate, airIndex, reductorPressure, airSignal)
@@ -246,52 +273,29 @@ class Parameters: ObservableObject {
     func resetParameters() {
         print("reset Parameters")
         workConditions = WorkСonditions(fireStatus: false,
-                                             hardWork: false,
-                                             startTime: Date(),
-                                             fireTime: Date(),
-                                             startPressure: [300.0, 300.0, 300.0, 300.0, 300.0],
-                                             firePressure: [250.0, 250.0, 250.0, 250.0, 250.0],
-                                             minValue: 300.0,
-                                             teamSize: 3)
+                                        hardWork: false,
+                                        startTime: Date(),
+                                        fireTime: Date(),
+                                        startPressure: [300.0, 300.0, 300.0, 300.0, 300.0],
+                                        firePressure: [250.0, 250.0, 250.0, 250.0, 250.0],
+                                        minValue: 300.0,
+                                        teamSize: 3)
         
         appSettings = AppSettings(deviceType: DeviceType.air,
-                                       measureType: MeasureType.kgc,
-                                       isOnSignal: true,
-                                       solutionType: false,
-                                       airSignalFlag: false)
+                                  measureType: MeasureType.kgc,
+                                  isOnSignal: true,
+                                  solutionType: false)
         
         deviceSettings = DeviceSettings(airVolume: 6.8,
-                                             airRate: 40.0,
-                                             airIndex: 1.1,
-                                             reductorPressure: 10.0,
-                                             airSignal: 55.0)
+                                        airRate: 40.0,
+                                        airIndex: 1.1,
+                                        reductorPressure: 10.0,
+                                        airSignal: 55.0)
         
         
     }
     
     
-    
-    // MARK: - СОХРАНЯЕМ НАСТРОЙКИ В USER DEFAULTS
-    func saveSettings() {
-        guard let workConditions = try? JSONEncoder().encode(workConditions) else {
-            print("Не удалось сохранить workConditions")
-            return
-        }
-        guard let appSettings = try? JSONEncoder().encode(appSettings) else {
-            print("Не удалось сохранить appSettingsя")
-            return
-        }
-        guard let deviceSettings = try? JSONEncoder().encode(deviceSettings) else {
-            print("Не удалось сохранить deviceSettings")
-            return
-        }
-        
-        UserDefaults.standard.set(workConditions, forKey: "workConditions")
-        UserDefaults.standard.set(appSettings, forKey: "appSettings")
-        UserDefaults.standard.set(deviceSettings, forKey: "deviceSettings")
-        
-        print("Настройки сохранены")
-    }
     
     private func loadSettings() {
         if let workConditionsData = UserDefaults.standard.data(forKey: "workConditions") {

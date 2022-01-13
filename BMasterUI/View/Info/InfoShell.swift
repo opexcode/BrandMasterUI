@@ -79,30 +79,25 @@ struct Info: View {
     @State private var showingMail: Bool = false
     
     var body: some View {
-        
-        return Group {
-            if showSearch {
-                // Показываем поисковые запросы...
-                SearchCompilation
-            } else {
-                // показываем основное меню...
-                InfoList
-            }
+        if showSearch {
+            SearchCompilation
+        } else {
+            MainMenu
         }
     }
     
     var SearchCompilation: some View {
         List {
-            ForEach(filteredItems, id: \.self) { item in
-                NavigationLink(destination: TextViewer(text: search.getContent(by: item))) {
+            ForEach(filteredItems, id: \.self) { query in
+                NavigationLink(destination: TextViewer(text: search.getContent(by: query))) {
                     Image(systemName: "magnifyingglass")
-                    Text(item)
+                    Text(query)
                 }
             }
         }
     }
     
-    var InfoList: some View {
+    var MainMenu: some View {
         List {
             Section {
                 NavigationLink(destination: MarksView()) {
@@ -156,6 +151,7 @@ struct Info: View {
             }
         }
         .listStyle(InsetListStyle())
+        
     }
     
 }

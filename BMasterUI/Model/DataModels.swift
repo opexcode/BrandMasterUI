@@ -34,6 +34,6 @@ struct AppSettings: Codable {
     var measureType: MeasureType
     var isOnSignal: Bool
     var solutionType: Bool
-    var airSignalFlag: Bool
+//    var airSignalFlag: Bool
 //    var fontSize: Int? = nil
 }

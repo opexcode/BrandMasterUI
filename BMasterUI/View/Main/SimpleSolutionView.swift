@@ -40,10 +40,17 @@ struct SolutionForFound: View {
         let expectedTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.startTime, totalTime: totalTime)
         
         // 3) Расчет давления для выхода (Рк.вых)
-        let exitPressure = compute.exitPressureCalculation(maxDrop: vm.fallPressureData, hardChoice: vm.workConditions.hardWork)
+        var exitPressure: Double {
+            if vm.appSettings.isOnSignal {
+                return vm.deviceSettings.airSignal
+            } else {
+               return compute.exitPressureCalculation(maxDrop: vm.fallPressureData, hardChoice: vm.workConditions.hardWork)
+            }
+        }
         
         // Pквых округлям при кгс и не меняем при МПа
         let exitPString = vm.appSettings.measureType == .kgc ? String(Int(exitPressure)) : String(format:"%.1f", floor(exitPressure * 10) / 10)
+        
         
         // 4) Расчет времени работы у очага (Траб)
         let workTime = compute.workTimeCalculation(minPressure: vm.workConditions.firePressure, exitPressure: exitPressure)
@@ -51,7 +58,7 @@ struct SolutionForFound: View {
         // 5) Время подачи команды постовым на выход звена
         let  exitTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.fireTime, totalTime: workTime)
         
-        VStack {
+        return VStack {
             List {
                 
                 SimpleCell(value: "\(Int(totalTime)) мин.",
@@ -76,13 +83,9 @@ struct SolutionForFound: View {
             .listStyle(InsetListStyle())
             .onAppear() {
                 if vm.appSettings.isOnSignal {
-                    if exitPressure == vm.deviceSettings.airSignal {
-                        self.signal = true
-                    }
+                    signal = true
                 }
             }
-            
-            
         }
     }
 }

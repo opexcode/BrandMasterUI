@@ -46,6 +46,7 @@ struct InstructionsView: View {
                   Image(systemName: "doc.text")
                   Text(functional[i])
                }
+                
             }
          }
          
@@ -61,6 +62,7 @@ struct InstructionsView: View {
       .listStyle(InsetListStyle())
       .navigationBarTitle("Обязанности")
       .navigationBarTitle("", displayMode: .inline)
+       
    }
 }
 

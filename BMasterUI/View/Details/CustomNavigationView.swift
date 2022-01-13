@@ -28,7 +28,6 @@ struct CustomNavigationView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UINavigationController {
         
         let childView = UIHostingController(rootView: view)
-        
         let controller = UINavigationController(rootViewController: childView)
         
         // Nav Bar Data...
@@ -36,7 +35,6 @@ struct CustomNavigationView: UIViewControllerRepresentable {
         controller.navigationBar.prefersLargeTitles = true
         
         // Search bar...
-        
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "Поиск..."
         
@@ -52,7 +50,6 @@ struct CustomNavigationView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UINavigationController, context contex: Context) {
-        
         // Update real time...
 //        uiViewController.navigationBar.topItem?.title = title
     }

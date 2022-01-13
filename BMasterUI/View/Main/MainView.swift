@@ -71,7 +71,7 @@ struct MainView: View {
                             VStack {
                                 HStack {
                                     Image(systemName: workConditions.hardWork ? "dial.max.fill" : "dial.min.fill")
-                                        .foregroundColor(workConditions.hardWork ? .red : .green)
+                                        .foregroundColor(workConditions.hardWork ? .orange : .green)
                                         .frame(width: 26, height: 26, alignment: .center)
                                     
                                     Text("Условия")
@@ -159,15 +159,14 @@ struct MainView: View {
                             
                             // Поиск очага
                             if !workConditions.fireStatus {
-                                HStack(spacing: 20) {
+                                HStack(spacing: 15) {
                                     Text("P мин. вкл.")
+                                        .font(.custom("Charter-Roman", size: 17))
                                     
-                                    //                                    TextField("P min.", text: $minValue)
                                     CustomTF(text: $workConditions.minValue, keyType: keyboardType, placeholder: "P min.", fontSize: 18)
                                         .frame(width: 90)
                                         .multilineTextAlignment(.center)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    //                                        .keyboardType(vm.appSettings.measureType == .kgc ? .numberPad : .decimalPad)
                                         .onChange(of: workConditions.minValue) { newValue in
                                             checkTextField(type: vm.appSettings.measureType, value: &workConditions.minValue, newValue: newValue)
                                         }
@@ -180,7 +179,7 @@ struct MainView: View {
                                 HStack {
                                     Text("P вкл.")
                                         .rotationEffect(Angle(degrees: -90))
-//                                        .foregroundColor(.blue)
+                                        .font(.custom("Charter-Roman", size: 17))
                                     
                                     VStack {
                                         ForEach(0..<workConditions.teamSize, id: \.self) { i in
@@ -190,7 +189,7 @@ struct MainView: View {
                                     
                                     Text("P очага")
                                         .rotationEffect(Angle(degrees: -90))
-//                                        .foregroundColor(.blue)
+                                        .font(.custom("Charter-Roman", size: 17))
                                 }
                                 .frame(width: 220)
                             }
@@ -249,6 +248,8 @@ struct PressureItem: View {
     @Binding var fireValue: String
     @State private var alert: Bool = false
     
+    let fontSize: CGFloat = 20
+    
     var keyboardType: UIKeyboardType {
         return vm.appSettings.measureType == .kgc ? .numberPad : .decimalPad
     }
@@ -256,7 +257,7 @@ struct PressureItem: View {
     var body: some View {
         
         HStack(spacing: 10) {
-            CustomTF(text: $enterValue, keyType: keyboardType, placeholder: "P вкл.", fontSize: 18)
+            CustomTF(text: $enterValue, keyType: keyboardType, placeholder: "P вкл.", fontSize: fontSize)
                 .onChange(of: enterValue) { newValue in
                     checkTextField(type: vm.appSettings.measureType, value: &enterValue, newValue: newValue)
                 }
@@ -264,15 +265,12 @@ struct PressureItem: View {
             Text("\(num)")
                 .font(Font.body.bold())
             
-            CustomTF(text: $fireValue, keyType: keyboardType, placeholder: "P очага.", fontSize: 18)
+            CustomTF(text: $fireValue, keyType: keyboardType, placeholder: "P очага.", fontSize: fontSize)
                 .onChange(of: fireValue) { newValue in
                     checkTextField(type: vm.appSettings.measureType, value: &fireValue, newValue: newValue)
                 }
             
         } // HStack
-        .textFieldStyle(RoundedBorderTextFieldStyle())
-        .font(.custom("AppleSDGothicNeo-Semibold", size: 17))
-        .multilineTextAlignment(.center)
     }
 }
 

@@ -24,12 +24,13 @@
 		44F3DEFB2702DFFE00A11392 /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3DEFA2702DFFE00A11392 /* PDFCreator.swift */; };
 		44F3DEFD2702E01A00A11392 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3DEFC2702E01900A11392 /* Calculations.swift */; };
 		44F3DF0227032D5100A11392 /* signal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DEFE27032D5100A11392 /* signal.pdf */; };
-		44F3DF0327032D5100A11392 /* airFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DEFF27032D5100A11392 /* airFoundNew.pdf */; };
-		44F3DF0427032D5100A11392 /* airNotFoundNew.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0027032D5100A11392 /* airNotFoundNew.pdf */; };
-		44F3DF0527032D5100A11392 /* Marks.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0127032D5100A11392 /* Marks.pdf */; };
+		44F3DF0327032D5100A11392 /* PatternForFound.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DEFF27032D5100A11392 /* PatternForFound.pdf */; };
+		44F3DF0427032D5100A11392 /* PatternForNotFound.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0027032D5100A11392 /* PatternForNotFound.pdf */; };
+		44F3DF0527032D5100A11392 /* PatternForMarks.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0127032D5100A11392 /* PatternForMarks.pdf */; };
 		8A0180DC27367973009496DB /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0180DB27367973009496DB /* TextViewer.swift */; };
 		8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23002B278707FF00F9280A /* CustomTextField.swift */; };
 		8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */; };
+		8A479F49278E7F9C00C2FA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A479F48278E7F9C00C2FA03 /* LaunchScreen.storyboard */; };
 		8A5537CF278A828F00ADC319 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537CE278A828F00ADC319 /* DevicesView.swift */; };
 		8A5537D1278A848900ADC319 /* LeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D0278A848900ADC319 /* LeaderView.swift */; };
 		8A5537D3278A84EB00ADC319 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D2278A84EB00ADC319 /* InstructionsView.swift */; };
@@ -65,12 +66,13 @@
 		44F3DEFA2702DFFE00A11392 /* PDFCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
 		44F3DEFC2702E01900A11392 /* Calculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		44F3DEFE27032D5100A11392 /* signal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = signal.pdf; sourceTree = "<group>"; };
-		44F3DEFF27032D5100A11392 /* airFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airFoundNew.pdf; sourceTree = "<group>"; };
-		44F3DF0027032D5100A11392 /* airNotFoundNew.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = airNotFoundNew.pdf; sourceTree = "<group>"; };
-		44F3DF0127032D5100A11392 /* Marks.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Marks.pdf; sourceTree = "<group>"; };
+		44F3DEFF27032D5100A11392 /* PatternForFound.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForFound.pdf; sourceTree = "<group>"; };
+		44F3DF0027032D5100A11392 /* PatternForNotFound.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForNotFound.pdf; sourceTree = "<group>"; };
+		44F3DF0127032D5100A11392 /* PatternForMarks.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForMarks.pdf; sourceTree = "<group>"; };
 		8A0180DB27367973009496DB /* TextViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		8A23002B278707FF00F9280A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPDFCreator.swift; sourceTree = "<group>"; };
+		8A479F48278E7F9C00C2FA03 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A5537CE278A828F00ADC319 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		8A5537D0278A848900ADC319 /* LeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderView.swift; sourceTree = "<group>"; };
 		8A5537D2278A84EB00ADC319 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				443311A326E44ED40043EC38 /* Extension */,
 				4433119926E44E950043EC38 /* PDFPatterns */,
 				4433118D26E44E510043EC38 /* Assets.xcassets */,
+				8A479F48278E7F9C00C2FA03 /* LaunchScreen.storyboard */,
 				8AF8D5C7273140E70083BF3F /* infoData.json */,
 				4433119226E44E510043EC38 /* Info.plist */,
 				4433118F26E44E510043EC38 /* Preview Content */,
@@ -152,9 +155,9 @@
 		4433119926E44E950043EC38 /* PDFPatterns */ = {
 			isa = PBXGroup;
 			children = (
-				44F3DEFF27032D5100A11392 /* airFoundNew.pdf */,
-				44F3DF0027032D5100A11392 /* airNotFoundNew.pdf */,
-				44F3DF0127032D5100A11392 /* Marks.pdf */,
+				44F3DEFF27032D5100A11392 /* PatternForFound.pdf */,
+				44F3DF0027032D5100A11392 /* PatternForNotFound.pdf */,
+				44F3DF0127032D5100A11392 /* PatternForMarks.pdf */,
 				44F3DEFE27032D5100A11392 /* signal.pdf */,
 			);
 			path = PDFPatterns;
@@ -322,9 +325,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4433119126E44E510043EC38 /* Preview Assets.xcassets in Resources */,
-				44F3DF0527032D5100A11392 /* Marks.pdf in Resources */,
-				44F3DF0427032D5100A11392 /* airNotFoundNew.pdf in Resources */,
-				44F3DF0327032D5100A11392 /* airFoundNew.pdf in Resources */,
+				8A479F49278E7F9C00C2FA03 /* LaunchScreen.storyboard in Resources */,
+				44F3DF0527032D5100A11392 /* PatternForMarks.pdf in Resources */,
+				44F3DF0427032D5100A11392 /* PatternForNotFound.pdf in Resources */,
+				44F3DF0327032D5100A11392 /* PatternForFound.pdf in Resources */,
 				44F3DF0227032D5100A11392 /* signal.pdf in Resources */,
 				4433118E26E44E510043EC38 /* Assets.xcassets in Resources */,
 				8AF8D5C8273140E70083BF3F /* infoData.json in Resources */,

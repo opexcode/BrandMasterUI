@@ -46,9 +46,6 @@ struct ContentView: View {
                 })
             
         } //: TabView
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-            vm.saveSettings()
-        }
     }
 }
 

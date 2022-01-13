@@ -40,11 +40,11 @@ final class Calculations {
         let normalWork = maxDrop.max()! + maxDrop.max()! / 2 + parameters.deviceSettings.reductorPressure
         exitPressure = hardChoice ? hardWork : normalWork
         
-        if parameters.appSettings.isOnSignal {
-            if exitPressure < parameters.deviceSettings.airSignal {
-                exitPressure = parameters.deviceSettings.airSignal
-            }
-        }
+//        if parameters.appSettings.isOnSignal {
+//            if exitPressure < parameters.deviceSettings.airSignal {
+//                exitPressure = parameters.deviceSettings.airSignal
+//            }
+//        }
         
         return exitPressure
     }

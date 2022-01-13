@@ -35,7 +35,7 @@ final class MarksPDFCreator: NSObject {
             let context = context.cgContext
 
             // Подставляем PDF шаблон с формулами
-            let path = Bundle.main.path(forResource: "Marks", ofType: "pdf")!
+            let path = Bundle.main.path(forResource: "PatternForMarks", ofType: "pdf")!
             let url = URL(fileURLWithPath: path)
             let document = CGPDFDocument(url as CFURL)
             // Количество страниц

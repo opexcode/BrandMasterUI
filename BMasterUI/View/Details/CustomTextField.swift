@@ -46,9 +46,9 @@ struct CustomTF: UIViewRepresentable {
         uiView.borderStyle = .roundedRect
         uiView.keyboardType = keyType
         uiView.placeholder = placeholder
-        uiView.font = UIFont(name: "AppleSDGothicNeo-Semibold", size: fontSize)
-//        uiView.textColor = UIColor(.blue)
+        uiView.font = UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize)
         uiView.textAlignment = .center
+//        uiView.clearButtonMode = .whileEditing
     }
 
     // 4
