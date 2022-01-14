@@ -27,7 +27,6 @@ struct SimpleSolutionView: View {
 
 struct SolutionForFound: View {
     @ObservedObject var vm: Parameters
-    @State private var signal = false
     
     var body: some View {
         let compute = Calculations(parameters: vm)
@@ -39,17 +38,25 @@ struct SolutionForFound: View {
         // 2) Расчет ожидаемого времени возвращения звена из НДС (Твозв)
         let expectedTime = compute.expectedTimeCalculation(inputTime: vm.workConditions.startTime, totalTime: totalTime)
         
+        
         // 3) Расчет давления для выхода (Рк.вых)
         var exitPressure: Double {
-            if vm.appSettings.isOnSignal {
+            let newValue = compute.exitPressureCalculation(maxDrop: vm.fallPressureData, hardChoice: vm.workConditions.hardWork)
+            
+            if vm.appSettings.isOnSignal && newValue <= vm.deviceSettings.airSignal {
                 return vm.deviceSettings.airSignal
-            } else {
-               return compute.exitPressureCalculation(maxDrop: vm.fallPressureData, hardChoice: vm.workConditions.hardWork)
             }
+            else { return newValue }
+        }
+        
+        var signal: Bool {
+            vm.appSettings.isOnSignal && exitPressure <= vm.deviceSettings.airSignal
         }
         
         // Pквых округлям при кгс и не меняем при МПа
-        let exitPString = vm.appSettings.measureType == .kgc ? String(Int(exitPressure)) : String(format:"%.1f", floor(exitPressure * 10) / 10)
+        let exitPString = vm.appSettings.measureType == .kgc ?
+                            String(Int(exitPressure)) :
+                            String(format:"%.1f", floor(exitPressure * 10) / 10)
         
         
         // 4) Расчет времени работы у очага (Траб)
@@ -62,30 +69,29 @@ struct SolutionForFound: View {
             List {
                 
                 SimpleCell(value: "\(Int(totalTime)) мин.",
-                           description: "Общее время работы звена.", symbol: "Тобщ.")
+                           description: "Общее время работы звена.",
+                           symbol: "Тобщ.")
                 
                 SimpleCell(value: "\(expectedTime)",
-                           description: "Ожидаемое время возвращения звена из НДС.", symbol: "Твозвр.")
+                           description: "Ожидаемое время возвращения звена из НДС.",
+                           symbol: "Твозвр.")
                 
                 SimpleCell(value: exitPString,
                            unit: unit,
                            description: "Давление при котором звену необходимо выходить из НДС.",
-                           signal: self.signal,
+                           signal: signal,
                            symbol: "Рк.вых.")
                 
                 SimpleCell(value: "\(Int(workTime)) мин.",
-                           description: "Время работы звена у очага.", symbol: "Траб.")
+                           description: "Время работы звена у очага.",
+                           symbol: "Траб.")
                 
                 SimpleCell(value: exitTime,
-                           description: "Время подачи команды постовым на выход звена изВремя подачи команды постовым на выход звена из НДС.", symbol: "Тк.вых." )
+                           description: "Время подачи команды постовым на выход звена изВремя подачи команды постовым на выход звена из НДС.",
+                           symbol: "Тк.вых." )
                 
             }
             .listStyle(InsetListStyle())
-            .onAppear() {
-                if vm.appSettings.isOnSignal {
-                    signal = true
-                }
-            }
         }
     }
 }
@@ -129,10 +135,12 @@ struct SolutionForSearch: View {
                 
                 SimpleCell(value: exitPString,
                            unit: unit,
-                           description: "Давление при котором звену необходимо начать выход из НДС.", symbol: "Рк.вых.")
+                           description: "Давление при котором звену необходимо начать выход из НДС.",
+                           symbol: "Рк.вых.")
                 
                 SimpleCell(value: "\(Int(timeDelta)) мин.",
-                           description: "Промежуток времени с момента включения до подачи постовым команды на выход.", symbol: "\u{0394}T.")
+                           description: "Промежуток времени с момента включения до подачи постовым команды на выход.",
+                           symbol: "\u{0394}T.")
                 
                 SimpleCell(value: exitTime,
                            unit: unit,

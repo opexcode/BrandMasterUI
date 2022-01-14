@@ -61,7 +61,7 @@ struct MainView: View {
                         .cornerRadius(8.0)
                         .shadow(color: Color.gray, radius: 3)
                         .padding(.trailing, 2.5)
-                        
+                        .onTapGesture {  workConditions.fireStatus.toggle() }
                         
                         
                         // MARK: - Условия
@@ -88,6 +88,7 @@ struct MainView: View {
                         .cornerRadius(8.0)
                         .shadow(color: Color.gray, radius: 3)
                         .padding(.leading, 2.5)
+                        .onTapGesture {  workConditions.hardWork.toggle() }
                         
                     } //: HStack
                     
@@ -226,7 +227,6 @@ struct MainView: View {
         } //NavigationView
         
         .onAppear() {
-            // TODO Подгрузка из UserDefauls
             workConditions = vm.obtainWorkData()
         }
         .onDisappear() {

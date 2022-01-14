@@ -20,20 +20,6 @@ enum MeasureType: String, CaseIterable, Codable {
     case mpa = "МПа"
 }
 
-enum SolutionType {
-    case full
-    case simple
-}
-
-/*
- @Published var items = [ExpenseItem]() {
- didSet {
- if let encoded = try? JSONEncoder().encode(items) {
- UserDefaults.standard.set(encoded, forKey: "Items")
- }
- }
- }
- */
 
 class Parameters: ObservableObject {
     
@@ -58,7 +44,7 @@ class Parameters: ObservableObject {
     @Published var appSettings = AppSettings(deviceType: DeviceType.air,
                                              measureType: MeasureType.kgc,
                                              isOnSignal: true,
-                                             solutionType: false) {
+                                             solutionType: true) {
         didSet {
             if let ecoded = try? JSONEncoder().encode(appSettings) {
                 UserDefaults.standard.set(ecoded, forKey: "appSettings")
@@ -111,6 +97,7 @@ class Parameters: ObservableObject {
         }
     }
     
+    
     // MARK: - METHODS Главный экран
     
     func writeWorkData(conditions: (fireStatus: Bool, hardWork: Bool, startTime: Date, fireTime: Date, startPressure: [String], firePressure: [String], minValue: String, teamSize: Int)) {
@@ -119,8 +106,15 @@ class Parameters: ObservableObject {
         workConditions.hardWork = conditions.hardWork
         workConditions.startTime = conditions.startTime
         workConditions.fireTime = conditions.fireTime
-        workConditions.startPressure = conditions.startPressure.map({ $0.doubleValue })
-        workConditions.firePressure = conditions.firePressure.map({ $0.doubleValue })
+        
+        // Оставляем значения по количеству человек в звене
+        let onlyTFValues = conditions.startPressure.prefix(conditions.teamSize)
+        let useOnlyFire = conditions.firePressure.prefix(conditions.teamSize)
+        
+        workConditions.startPressure = onlyTFValues.map({ $0.doubleValue })
+        workConditions.firePressure = useOnlyFire.map({ $0.doubleValue })
+        print(workConditions.startPressure)
+        
         workConditions.minValue = conditions.minValue.doubleValue
         workConditions.teamSize = conditions.teamSize
     }
@@ -138,17 +132,27 @@ class Parameters: ObservableObject {
         var minValue = String()
         
         let separator = Locale.current.decimalSeparator!
+        let count = 5 - workConditions.teamSize
         
         switch appSettings.measureType {
             case .kgc:
                 startPressure = workConditions.startPressure.map({ String(Int($0)) })
                 firePressure = workConditions.firePressure.map({ String(Int($0)) })
+                for _ in 0..<count {
+                    startPressure.append("300")
+                    firePressure.append("250")
+                }
+                
                 minValue = String(Int(workConditions.minValue))
                 
             case .mpa:
                 startPressure = workConditions.startPressure.map({ String($0).replacingOccurrences(of: ".", with: separator) })
                 firePressure = workConditions.firePressure.map({ String($0).replacingOccurrences(of: ".", with: separator) })
                 minValue = String(workConditions.minValue).replacingOccurrences(of: ".", with: separator)
+                for _ in 0..<count {
+                    startPressure.append("30.0".replacingOccurrences(of: ".", with: separator))
+                    firePressure.append("25.0".replacingOccurrences(of: ".", with: separator))
+                }
         }
         
         let teamSize = workConditions.teamSize
@@ -284,7 +288,7 @@ class Parameters: ObservableObject {
         appSettings = AppSettings(deviceType: DeviceType.air,
                                   measureType: MeasureType.kgc,
                                   isOnSignal: true,
-                                  solutionType: false)
+                                  solutionType: true)
         
         deviceSettings = DeviceSettings(airVolume: 6.8,
                                         airRate: 40.0,

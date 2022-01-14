@@ -85,7 +85,7 @@ final class PDFCreator: NSObject {
             case .mpa:
                 value = "МПа"
                 minEnterPressure = String(vm.workConditions.startPressure.min()!)
-                minFirePressure = String(vm.workConditions.startPressure.min()!)
+                minFirePressure = String(vm.workConditions.firePressure.min()!)
                 minValue = String(vm.workConditions.minValue)
                 reductor = String(vm.deviceSettings.reductorPressure)
                 airRate = String(vm.deviceSettings.airRate)
@@ -113,7 +113,7 @@ final class PDFCreator: NSObject {
         var airSignalFlag = false
     
         
-        if vm.appSettings.isOnSignal {
+        if vm.appSettings.isOnSignal && exitPressure <= vm.deviceSettings.airSignal {
             airSignalFlag = true
             exitPressure = vm.deviceSettings.airSignal
         }

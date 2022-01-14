@@ -22,7 +22,7 @@ struct SettingsView: View {
     @State private var appSettings = (deviceType: DeviceType.air,
                                       measureType: MeasureType.kgc,
                                       isOnSignal: true,
-                                      solutionType: false)
+                                      solutionType: true)
     
     @State private var deviceSettings = (airVolume: "6.8",
                                          airRate: "40.0",
