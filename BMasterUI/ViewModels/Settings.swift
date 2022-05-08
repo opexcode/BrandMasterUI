@@ -9,5 +9,4 @@ import SwiftUI
 
 class Settings: ObservableObject {
     @AppStorage("fontSize") var fontSize: Int = 17
-    
 }

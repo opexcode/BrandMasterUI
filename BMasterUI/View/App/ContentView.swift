@@ -38,6 +38,11 @@ struct ContentView: View {
                     Text("Настройки")
                 })
             
+//            RepositoryView()
+//                .tabItem({
+//                    Image(systemName: "gearshape")
+//                    Text("Инвентарь")
+//                })
             
             InfoShell()
                 .tabItem({

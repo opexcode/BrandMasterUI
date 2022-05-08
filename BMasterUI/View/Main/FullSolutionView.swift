@@ -17,19 +17,25 @@ struct FullSolutionView: View {
         .makeConnectable()
         .autoconnect()
     
-    
+    //    @ViewBuilder
     var body: some View {
         let pdf = PDFCreator(parameters: parameters)
         
-        return Group {
-            if parameters.workConditions.fireStatus {
-                PDFViewUI(data: pdf.generateForSearch())
-            } else {
-                PDFViewUI(data: pdf.generateForFire())
-            }
-        }
+        PDFViewUI(
+            data: parameters.workConditions.fireStatus ?
+            pdf.generateForSearch() : pdf.generateForFire()
+        )
+        
+        //        return Group {
+        //            if parameters.workConditions.fireStatus {
+        //                PDFViewUI(data: pdf.generateForSearch())
+        //            } else {
+        //                PDFViewUI(data: pdf.generateForFire())
+        //            }
+        //        }
+        
         .ignoresSafeArea(edges: .bottom)
-//        .navigationBarBackButtonHidden(true)
+        //        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -39,16 +45,16 @@ struct FullSolutionView: View {
                 }
             }
             // Custom Back-button
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button(action: {
-//                    presentationMode.wrappedValue.dismiss()
-//                }) {
-//                    HStack(spacing: 10) {
-//                        Image(systemName: "chevron.left")
-//                        Text("Назад")
-//                    }
-//                }
-//            }
+            //            ToolbarItem(placement: .navigationBarLeading) {
+            //                Button(action: {
+            //                    presentationMode.wrappedValue.dismiss()
+            //                }) {
+            //                    HStack(spacing: 10) {
+            //                        Image(systemName: "chevron.left")
+            //                        Text("Назад")
+            //                    }
+            //                }
+            //            }
         }
         .onReceive(orientationChanged) { _ in
             self.orientation = UIDevice.current.orientation

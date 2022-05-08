@@ -57,10 +57,20 @@ struct Devices: View {
             "0,65-1,0 МПа\n(6,5-10,0 кгс/см\u{00B2})",
             "1,3-2,0 МПа\n(13-20 кгс/см\u{00B2})",
             "6,0-5,0 МПа\n(60-50 кгс/см\u{00B2})",
-            "180-300 Па\n(18-30 мм вод. ст.",
+            "180-300 Па\n(18-30 мм вод. ст.)",
             "350 Па\n(35 мм вод. ст.)",
             "",
             ""
+        ],
+        "AirXpress Fire/Fire-Z":     [
+            "29,4 МПа\n300 бар",
+            "6,0-8,0 бар",
+            "11-15 бар",
+            "6,0-5,0 МПа\n(60-50 кгс/см\u{00B2})",
+            "2,5-3,9, мБар",
+            "350 Па\n(35 мм вод. ст.)",
+            "3,6/3,8(Fire-Z) кг",
+            "9 лет"
         ]
     ]
     
@@ -69,7 +79,8 @@ struct Devices: View {
         "ПТС Базис":              "https://disk.yandex.ru/i/DwR3ffuNhedicA",
         "ПТС Профи М/МП":         "https://disk.yandex.ru/d/EFKTr8w9ha4nTQ",
         "AirGO MSA":              "http://s7d9.scene7.com/is/content/minesafetyappliances/OPM_AirGo_10082058_RU",
-        "Drager PSS 3000/5000":   "https://www.sbgaz.ru/upload/iblock/5b0/instruktsiya-pss-5000.pdf"
+        "Drager PSS 3000/5000":   "https://www.sbgaz.ru/upload/iblock/5b0/instruktsiya-pss-5000.pdf",
+        "AirXpress Fire/Fire-Z":         "https://disk.yandex.ru/i/75Z5xY28d26dvw"
     ]
     
     @Environment(\.openURL) var openURL
