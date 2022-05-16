@@ -44,9 +44,10 @@ struct ContainerView: View {
                     }
                 } // VStack
             }
+            .padding()
         } // VStack
         .overlay(RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.black.opacity(0.5), lineWidth: 1)
+            .stroke(color.opacity(0.5), lineWidth: 1)
         )
         .frame(maxWidth: .infinity)
     }

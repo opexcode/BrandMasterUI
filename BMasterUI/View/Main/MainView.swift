@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    let darkColor = Color(red: 28/255, green: 28/255, blue: 30/255)
+    
     var backColor: some View {
         colorScheme == .dark ? darkColor : Color.white
     }

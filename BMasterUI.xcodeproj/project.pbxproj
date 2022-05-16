@@ -27,6 +27,9 @@
 		44F3DF0327032D5100A11392 /* PatternForFound.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DEFF27032D5100A11392 /* PatternForFound.pdf */; };
 		44F3DF0427032D5100A11392 /* PatternForNotFound.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0027032D5100A11392 /* PatternForNotFound.pdf */; };
 		44F3DF0527032D5100A11392 /* PatternForMarks.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44F3DF0127032D5100A11392 /* PatternForMarks.pdf */; };
+		88447D772831E15900882389 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D762831E15900882389 /* DataController.swift */; };
+		88447D792831EDF300882389 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D782831EDF300882389 /* Constans.swift */; };
+		88447D7B2831F67400882389 /* NewInventoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D7A2831F67400882389 /* NewInventoryForm.swift */; };
 		8A0180DC27367973009496DB /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0180DB27367973009496DB /* TextViewer.swift */; };
 		8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23002B278707FF00F9280A /* CustomTextField.swift */; };
 		8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */; };
@@ -37,9 +40,7 @@
 		8A5537D5278A852B00ADC319 /* SmokeServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5537D4278A852B00ADC319 /* SmokeServiceView.swift */; };
 		8A93D4F027885AF6007BBF04 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93D4EF27885AF6007BBF04 /* Settings.swift */; };
 		8ABA91D527E59C13005D387D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91D327E59C13005D387D /* DataModel.xcdatamodeld */; };
-		8ABA91D727E59CA3005D387D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91D627E59CA3005D387D /* DataController.swift */; };
 		8ABA91F227E5AF99005D387D /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F127E5AF99005D387D /* RepositoryView.swift */; };
-		8ABA91F527E5B3C5005D387D /* AddInventoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F427E5B3C5005D387D /* AddInventoryForm.swift */; };
 		8ABA91F727E5BAC0005D387D /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F627E5BAC0005D387D /* InventoryView.swift */; };
 		8ABA91F927E5BC8A005D387D /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F827E5BC8A005D387D /* ContainerView.swift */; };
 		8ABA91FB27E5BCD7005D387D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91FA27E5BCD7005D387D /* File.swift */; };
@@ -77,6 +78,9 @@
 		44F3DEFF27032D5100A11392 /* PatternForFound.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForFound.pdf; sourceTree = "<group>"; };
 		44F3DF0027032D5100A11392 /* PatternForNotFound.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForNotFound.pdf; sourceTree = "<group>"; };
 		44F3DF0127032D5100A11392 /* PatternForMarks.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PatternForMarks.pdf; sourceTree = "<group>"; };
+		88447D762831E15900882389 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		88447D782831EDF300882389 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
+		88447D7A2831F67400882389 /* NewInventoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInventoryForm.swift; sourceTree = "<group>"; };
 		8A0180DB27367973009496DB /* TextViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		8A23002B278707FF00F9280A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPDFCreator.swift; sourceTree = "<group>"; };
@@ -87,9 +91,7 @@
 		8A5537D4278A852B00ADC319 /* SmokeServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeServiceView.swift; sourceTree = "<group>"; };
 		8A93D4EF27885AF6007BBF04 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		8ABA91D427E59C13005D387D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		8ABA91D627E59CA3005D387D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		8ABA91F127E5AF99005D387D /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
-		8ABA91F427E5B3C5005D387D /* AddInventoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInventoryForm.swift; sourceTree = "<group>"; };
 		8ABA91F627E5BAC0005D387D /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		8ABA91F827E5BC8A005D387D /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		8ABA91FA27E5BCD7005D387D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -187,7 +189,7 @@
 				8AF8D5CC2731584A0083BF3F /* Search.swift */,
 				8ABA91FA27E5BCD7005D387D /* File.swift */,
 				8ABA91D327E59C13005D387D /* DataModel.xcdatamodeld */,
-				8ABA91D627E59CA3005D387D /* DataController.swift */,
+				88447D762831E15900882389 /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,6 +227,7 @@
 			children = (
 				449CB0C62703E94F0094C7DA /* Utilities.swift */,
 				443311A226E44E9D0043EC38 /* JSONParser.swift */,
+				88447D782831EDF300882389 /* Constans.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -253,10 +256,10 @@
 			isa = PBXGroup;
 			children = (
 				8ABA91F127E5AF99005D387D /* RepositoryView.swift */,
-				8ABA91F427E5B3C5005D387D /* AddInventoryForm.swift */,
 				8ABA91F627E5BAC0005D387D /* InventoryView.swift */,
 				8ABA91F827E5BC8A005D387D /* ContainerView.swift */,
 				8ABA91FC27E5C12C005D387D /* AddContainerForm.swift */,
+				88447D7A2831F67400882389 /* NewInventoryForm.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				8ABA91D527E59C13005D387D /* DataModel.xcdatamodeld in Sources */,
 				443311B326E464EE0043EC38 /* Parameters.swift in Sources */,
 				44F3DEF92702DFD300A11392 /* FullSolutionView.swift in Sources */,
+				88447D7B2831F67400882389 /* NewInventoryForm.swift in Sources */,
 				8ABA91F227E5AF99005D387D /* RepositoryView.swift in Sources */,
 				8A5537D1278A848900ADC319 /* LeaderView.swift in Sources */,
 				443311B526E4707F0043EC38 /* DataModels.swift in Sources */,
@@ -411,13 +415,13 @@
 				8A93D4F027885AF6007BBF04 /* Settings.swift in Sources */,
 				8ABA91F927E5BC8A005D387D /* ContainerView.swift in Sources */,
 				8A5537D3278A84EB00ADC319 /* InstructionsView.swift in Sources */,
-				8ABA91D727E59CA3005D387D /* DataController.swift in Sources */,
 				449CB0C4270357EE0094C7DA /* SettingsView.swift in Sources */,
 				8ABA91FB27E5BCD7005D387D /* File.swift in Sources */,
-				8ABA91F527E5B3C5005D387D /* AddInventoryForm.swift in Sources */,
+				88447D772831E15900882389 /* DataController.swift in Sources */,
 				8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */,
 				8AC798B5278BBC47009D9B9C /* MailComposeView.swift in Sources */,
 				8A0180DC27367973009496DB /* TextViewer.swift in Sources */,
+				88447D792831EDF300882389 /* Constans.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
