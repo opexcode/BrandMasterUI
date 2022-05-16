@@ -50,7 +50,9 @@ struct RepositoryView: View {
             Text("Добавить инвентарь")
             
             Button(action: {
-                presentAddInventorySheet.toggle()
+                withAnimation {
+                    presentAddInventorySheet.toggle()
+                }
             }) {
                 Image(systemName: "plus.square")
                     .resizable()
@@ -63,7 +65,9 @@ struct RepositoryView: View {
     var ToolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button("Add") {
-                presentAddInventorySheet.toggle()
+                withAnimation {
+                    presentAddInventorySheet.toggle()
+                }
             }
         }
         

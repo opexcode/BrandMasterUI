@@ -15,32 +15,40 @@ struct InventoryView: View {
     ) var containers: FetchedResults<Container>
     
     @State var inventory: Inventory
+    @State private var presentAddContainerForm = false
     
     //    init(inventory: Inventory) {
     //        _containers = FetchRequest<Container>(sortDescriptors: [], predicate: NSPredicate(format: "type %@", inventory.type))
     //    }
     
     var body: some View {
-        Group {
-            if containers.isEmpty {
-                EmptyContainer
-            } else {
-                ScrollView(.vertical) {
-                    VStack(spacing: 20) {
-                        ForEach(containers, id: \.self) { container in
-                            ContainerView(
-                                title: container.type!,
-                                items: [],
-                                color: .blue
-                            )
+        ZStack {
+            Color(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            
+            Group {
+                if containers.isEmpty {
+                    EmptyContainer
+                } else {
+                    ScrollView(.vertical) {
+                        VStack(spacing: 10) {
+                            ForEach(containers, id: \.self) { container in
+                                ContainerView(
+                                    title: container.type!,
+                                    color: .blue
+                                )
+                            }
                         }
+                        .padding()
+                        .toolbar { ToolbarContent }
                     }
-                    .padding()
-                    .toolbar { ToolbarContent }
                 }
             }
+            .navigationTitle(inventory.name ?? "")
         }
-        .navigationTitle(inventory.name!)
+        .sheet(isPresented: $presentAddContainerForm) {
+            AddContainerForm()
+        }
     }
     
     var EmptyContainer: some View {
@@ -67,9 +75,10 @@ struct InventoryView: View {
     
     // MARK: - Funcs
     private func createContainer() {
-        let container = Container(context: viewContext)
-        container.type = "Рукава"
-        try? viewContext.save()
+        presentAddContainerForm.toggle()
+//        let container = Container(context: viewContext)
+//        container.type = "Рукава"
+//        try? viewContext.save()
     }
 }
 

@@ -56,7 +56,7 @@ struct AddContainerForm: View {
                 }
                 
                 ForEach(items, id: \.self) { item in
-                    ItemRowView(item: ContainerItem(name: item.name ?? "item", amount: Int(item.amount)))
+                    ItemRowView(item: item)
                 }
                 
                 Spacer(minLength: 40)

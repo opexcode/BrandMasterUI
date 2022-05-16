@@ -50,6 +50,7 @@ struct NewInventoryForm<Presenting>: View where Presenting: View {
                         width: deviceSize.size.width * 0.7,
                         height: deviceSize.size.height * 0.7
                     )
+                    .transition(.scale)
                 }
             }
         }
