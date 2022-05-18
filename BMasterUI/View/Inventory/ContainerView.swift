@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContainerView: View {
     
-    @State var title: String
-    //    @State var items: [ContainerItem]
-    @State var color: Color
+    @State var container: Container
     
+    @State private var presentEditForm = false
     @State private var addContainer = false
+    
     @FetchRequest(
         sortDescriptors: [],
         predicate: nil
@@ -24,19 +24,32 @@ struct ContainerView: View {
         colorScheme == .dark ? darkColor : Color.white
     }
     
+    init(container: Container) {
+        _container = State(initialValue: container)
+        
+        guard let id = container.id else { return }
+        _items = FetchRequest<Item>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "id == %@", id as CVarArg)
+        )
+    }
+    
     var body: some View {
         VStack {
-            
             VStack(alignment: .leading, spacing: 20) {
+                Text("\(container.id!)")
+                
                 HStack(spacing: 10) {
                     
-                    Text(title)
+                    Text(container.title ?? "")
                         .fontWeight(.medium)
                         .font(.title2)
                     
                     Spacer()
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        presentEditForm.toggle()
+                    }) {
                         Image(systemName: "slider.horizontal.3")
                             .foregroundColor(.gray)
                     }
@@ -50,15 +63,17 @@ struct ContainerView: View {
             }
             .padding()
         } // VStack
-        
         .background(backColor)
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(color.opacity(0.5), lineWidth: 1)
+                .stroke(Color.blue.opacity(0.5), lineWidth: 1)
             
         )
         .frame(maxWidth: .infinity)
+        .sheet(isPresented: $presentEditForm) {
+            AddContainerForm(id: self.container.id ?? UUID(), container: self.container)
+        }
     }
 }
 

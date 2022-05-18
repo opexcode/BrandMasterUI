@@ -9,17 +9,23 @@ import SwiftUI
 
 struct InventoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [],
-        predicate: nil
-    ) var containers: FetchedResults<Container>
+    @FetchRequest private var containers: FetchedResults<Container>
     
     @State var inventory: Inventory
     @State private var presentAddContainerForm = false
     
-    //    init(inventory: Inventory) {
-    //        _containers = FetchRequest<Container>(sortDescriptors: [], predicate: NSPredicate(format: "type %@", inventory.type))
-    //    }
+    init(inventory: Inventory) {
+        _inventory = State(initialValue: inventory)
+//        guard let id = inventory.id else {
+//            print("false inventory.id")
+//            return
+//        }
+        print("\(inventory.id!)")
+        _containers = FetchRequest<Container>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "id == %@", inventory.id! as CVarArg)
+        )
+    }
     
     var body: some View {
         ZStack {
@@ -33,10 +39,7 @@ struct InventoryView: View {
                     ScrollView(.vertical) {
                         VStack(spacing: 10) {
                             ForEach(containers, id: \.self) { container in
-                                ContainerView(
-                                    title: container.type!,
-                                    color: .blue
-                                )
+                                ContainerView(container: container)
                             }
                         }
                         .padding()
@@ -47,7 +50,7 @@ struct InventoryView: View {
             .navigationTitle(inventory.name ?? "")
         }
         .sheet(isPresented: $presentAddContainerForm) {
-            AddContainerForm()
+            AddContainerForm(id: inventory.id ?? UUID())
         }
     }
     

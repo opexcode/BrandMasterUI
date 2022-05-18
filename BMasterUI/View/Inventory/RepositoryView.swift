@@ -11,6 +11,7 @@ struct RepositoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: []) var inventories: FetchedResults<Inventory>
     @FetchRequest(sortDescriptors: []) var containers: FetchedResults<Container> // test
+    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item> // test
     
     @State private var presentAddInventorySheet = false
     
@@ -79,6 +80,9 @@ struct RepositoryView: View {
                 containers.forEach { item in
                     viewContext.delete(item)
                 }
+                items.forEach { item in
+                    viewContext.delete(item)
+                }
                 
                 try? viewContext.save()
             }
@@ -100,8 +104,9 @@ struct RepositoryView: View {
     // MARK: Funcs
     private func addInventory() {
         let inventory = Inventory(context: viewContext)
+        inventory.id = UUID()
         inventory.name = inventoryName
-        
+        print("Create \(inventory.id)")
         try? viewContext.save()
         presentAddInventorySheet.toggle()
     }

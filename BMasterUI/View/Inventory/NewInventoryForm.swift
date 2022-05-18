@@ -32,7 +32,9 @@ struct NewInventoryForm<Presenting>: View where Presenting: View {
                         
                         HStack(spacing: 10) {
                             Button("Отмена") {
-                                self.isShowing.toggle()
+                                withAnimation {
+                                    self.isShowing.toggle()
+                                }
                             }
                             .frame(maxWidth: .infinity, alignment: .center)
                             

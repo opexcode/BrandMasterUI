@@ -257,9 +257,9 @@
 			children = (
 				8ABA91F127E5AF99005D387D /* RepositoryView.swift */,
 				8ABA91F627E5BAC0005D387D /* InventoryView.swift */,
-				88447D7A2831F67400882389 /* NewInventoryForm.swift */,
 				8ABA91F827E5BC8A005D387D /* ContainerView.swift */,
 				8ABA91FC27E5C12C005D387D /* AddContainerForm.swift */,
+				88447D7A2831F67400882389 /* NewInventoryForm.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
