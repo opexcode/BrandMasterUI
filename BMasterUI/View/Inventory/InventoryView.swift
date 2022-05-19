@@ -9,21 +9,18 @@ import SwiftUI
 
 struct InventoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest private var containers: FetchedResults<Container>
+    @FetchRequest(sortDescriptors: []) var containers: FetchedResults<Container>
     
     @State var inventory: Inventory
     @State private var presentAddContainerForm = false
     
     init(inventory: Inventory) {
         _inventory = State(initialValue: inventory)
-//        guard let id = inventory.id else {
-//            print("false inventory.id")
-//            return
-//        }
-        print("\(inventory.id!)")
+        
+        guard let id = inventory.id else { return }
         _containers = FetchRequest<Container>(
             sortDescriptors: [],
-            predicate: NSPredicate(format: "id == %@", inventory.id! as CVarArg)
+            predicate: NSPredicate(format: "masterID == %@", id as CVarArg)
         )
     }
     
@@ -79,9 +76,6 @@ struct InventoryView: View {
     // MARK: - Funcs
     private func createContainer() {
         presentAddContainerForm.toggle()
-//        let container = Container(context: viewContext)
-//        container.type = "Рукава"
-//        try? viewContext.save()
     }
 }
 

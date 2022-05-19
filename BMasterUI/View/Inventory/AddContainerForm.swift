@@ -7,33 +7,34 @@
 
 import SwiftUI
 
+let colors: [Color] = [.blue, .red, .green, .orange, .yellow, .gray, .pink, .black]
+let colorsGrid = [GridItem(.flexible()),
+                  GridItem(.flexible()),
+                  GridItem(.flexible()),
+                  GridItem(.flexible()),
+                  GridItem(.flexible()),
+                  GridItem(.flexible())]
+
+
+
 struct AddContainerForm: View {
+    
     @Environment(\.presentationMode) var presentaionMode
     @Environment(\.managedObjectContext) private var viewContext
-    
-    let colors: [Color] = [.blue, .red, .green, .orange, .yellow, .gray, .pink, .black]
-    let colorsGrid = [GridItem(.flexible()),
-                      GridItem(.flexible()),
-                      GridItem(.flexible()),
-                      GridItem(.flexible()),
-                      GridItem(.flexible()),
-                      GridItem(.flexible())]
     
     @State private var colorHeight: CGFloat = 0
     @State private var title: String = ""
     @State private var currentColor: Color = .clear
     
-    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
     var container: Container?
-    @State var id: UUID
+    @State var masterId: UUID
+    @State private var ownID: UUID?
     
     init(id: UUID, container: Container? = nil) {
         self.container = container
-        _id  = State(initialValue: id)
-        _items = FetchRequest<Item>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "id == %@", id as CVarArg)
-        )
+        _masterId  = State(initialValue: id)
+        let containerID = container == nil ? UUID() : container?.ownID
+        _ownID = State(initialValue: containerID)
     }
 
     
@@ -47,7 +48,9 @@ struct AddContainerForm: View {
                     
                     Spacer()
                     
-                    Button("Add") { createContainer(object: self.container) }
+                    Button(container != nil ? "Сохранить" : "Добавить") { createContainer(object: self.container)
+                        presentaionMode.wrappedValue.dismiss()
+                    }
                 }
                 .frame(height: 50)
                 
@@ -97,8 +100,8 @@ struct AddContainerForm: View {
                         addItemToContainer()
                     }
                     
-                    ForEach(items, id: \.self) { item in
-                        ItemRowView(item: item)
+                    if let ownID = ownID {
+                        ItemsView(id: ownID)
                     }
                 }
                 
@@ -108,7 +111,7 @@ struct AddContainerForm: View {
         .onAppear() {
             guard let container = container else { return }
             title = container.title ?? ""
-            id = container.id!
+//            masterId = container.id!
 //            currentColor = container.color
         }
     }
@@ -119,7 +122,7 @@ struct AddContainerForm: View {
         let item = Item(context: viewContext)
         item.name = "Item name"
         item.amount = 0
-        item.id = self.id
+        item.masterID = self.ownID
         
         try? viewContext.save()
     }
@@ -127,17 +130,20 @@ struct AddContainerForm: View {
     private func createContainer(object: Container?) {
         if let object = object {
             viewContext.performAndWait {
-                object.id = self.id
+                object.masterID = self.masterId
                 object.title = self.title
             }
         } else {
             let container = Container(context: viewContext)
-            container.id = self.id
-            container.title = title
-            print("Container id \(container.id)")
+            container.masterID = self.masterId
+            container.ownID = self.ownID
+            container.title = self.title
+            
         }
         try? viewContext.save()
-        presentaionMode.wrappedValue.dismiss()
+    }
+    
+    private func removeContainer() {
         
     }
 }
@@ -147,3 +153,26 @@ struct AddContainerForm: View {
 //        AddContainerForm()
 //    }
 //}
+
+
+struct ItemsView: View {
+    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
+    @State var id: UUID
+    
+    init(id: UUID) {
+        _id = State(initialValue: id)
+        
+//        guard let id = id else {return}
+        _items = FetchRequest<Item>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "masterID == %@", id as CVarArg)
+        )
+    }
+    var body: some View {
+        VStack {
+            ForEach(items, id: \.self) { item in
+                ItemRowView(item: item)
+            }
+        }
+    }
+}

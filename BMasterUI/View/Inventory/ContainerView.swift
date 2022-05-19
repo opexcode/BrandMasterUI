@@ -13,32 +13,20 @@ struct ContainerView: View {
     
     @State private var presentEditForm = false
     @State private var addContainer = false
-    
-    @FetchRequest(
-        sortDescriptors: [],
-        predicate: nil
-    ) var items: FetchedResults<Item>
-    
     @Environment(\.colorScheme) var colorScheme
     var backColor: some View {
         colorScheme == .dark ? darkColor : Color.white
     }
     
-    init(container: Container) {
-        _container = State(initialValue: container)
-        
-        guard let id = container.id else { return }
-        _items = FetchRequest<Item>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "id == %@", id as CVarArg)
-        )
-    }
+//    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
+    
+//    init(container: Container) {
+//        _container = State(initialValue: container)
+//    }
     
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 20) {
-                Text("\(container.id!)")
-                
                 HStack(spacing: 10) {
                     
                     Text(container.title ?? "")
@@ -55,11 +43,7 @@ struct ContainerView: View {
                     }
                 }
                 
-                VStack {
-                    ForEach(items, id: \.self) { item in
-                        ItemRowView(item: item)
-                    }
-                }
+                ItemsView(id: container.ownID!)
             }
             .padding()
         } // VStack
@@ -72,7 +56,7 @@ struct ContainerView: View {
         )
         .frame(maxWidth: .infinity)
         .sheet(isPresented: $presentEditForm) {
-            AddContainerForm(id: self.container.id ?? UUID(), container: self.container)
+            AddContainerForm(id: self.container.masterID ?? UUID(), container: self.container)
         }
     }
 }
@@ -83,7 +67,7 @@ struct ItemRowView: View {
     var body: some View {
         HStack {
 //            TextField("", text: $item.name)
-            Text(item.name!)
+            Text(item.name ?? "")
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -104,6 +88,7 @@ struct ItemRowView: View {
         }
     }
 }
+
 //
 //struct ContainerView_Previews: PreviewProvider {
 //    static var previews: some View {

@@ -106,7 +106,7 @@ struct RepositoryView: View {
         let inventory = Inventory(context: viewContext)
         inventory.id = UUID()
         inventory.name = inventoryName
-        print("Create \(inventory.id)")
+        
         try? viewContext.save()
         presentAddInventorySheet.toggle()
     }
