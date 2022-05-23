@@ -16,6 +16,9 @@ struct BMasterUIApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .font(.custom("AppleSDGothicNeo-Semibold", size: 17))
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                    try? dataController.container.viewContext.save()
+                }
         }
     }
 }

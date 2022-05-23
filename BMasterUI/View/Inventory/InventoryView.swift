@@ -11,11 +11,12 @@ struct InventoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: []) var containers: FetchedResults<Container>
     
-    @State var inventory: Inventory
+    @ObservedObject var inventory: Inventory
     @State private var presentAddContainerForm = false
+    @State private var editInventoryName = false
     
     init(inventory: Inventory) {
-        _inventory = State(initialValue: inventory)
+        _inventory = ObservedObject(initialValue: inventory)
         
         guard let id = inventory.id else { return }
         _containers = FetchRequest<Container>(
@@ -46,9 +47,16 @@ struct InventoryView: View {
             }
             .navigationTitle(inventory.name ?? "")
         }
-        .sheet(isPresented: $presentAddContainerForm) {
-            AddContainerForm(id: inventory.id ?? UUID())
+        .fullScreenCover(isPresented: $presentAddContainerForm) {
+            ContainerForm(id: inventory.id ?? UUID())
         }
+        
+        .overlay(customSheetBackground)
+        .textFieldAlert(
+            isShowing: $editInventoryName,
+            text: Binding($inventory.name)!,
+            title: "Новый инвентарь",
+            action: {})
     }
     
     var EmptyContainer: some View {
@@ -66,9 +74,30 @@ struct InventoryView: View {
     @ToolbarContentBuilder
     var ToolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: createContainer) {
+            Button(action: {
+                presentAddContainerForm.toggle()
+            }) {
                 Image(systemName: "plus.app.fill")
             }
+        }
+        
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+                withAnimation {
+                    editInventoryName.toggle()
+                }
+            }) {
+                Image(systemName: "pencil")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var customSheetBackground: some View {
+        if editInventoryName {
+            Color.black.opacity(0.2)
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture { editInventoryName.toggle() }
         }
     }
     

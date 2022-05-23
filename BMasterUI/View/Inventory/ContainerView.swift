@@ -14,15 +14,22 @@ struct ContainerView: View {
     @State private var presentEditForm = false
     @State private var addContainer = false
     @Environment(\.colorScheme) var colorScheme
+    
     var backColor: some View {
         colorScheme == .dark ? darkColor : Color.white
     }
     
-//    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
+    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
     
-//    init(container: Container) {
-//        _container = State(initialValue: container)
-//    }
+    init(container: Container) {
+        _container = State(initialValue: container)
+        
+        guard let id = container.ownID else { return }
+        _items = FetchRequest<Item>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "masterID == %@", id as CVarArg)
+        )
+    }
     
     var body: some View {
         VStack {
@@ -43,7 +50,25 @@ struct ContainerView: View {
                     }
                 }
                 
-                ItemsView(id: container.ownID!)
+//                ItemsView(id: container.ownID!)
+                
+                VStack {
+                    ForEach(items, id: \.self) { item in
+                        HStack {
+                            Text(item.name ?? "")
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Spacer()
+                            
+                            Text(String(item.amount))
+                                .font(.system(size: 18, weight: .bold))
+                                .frame(width: 50, alignment: .trailing)
+                            
+                        }
+                        .frame(height: 30)
+                    }
+                }
             }
             .padding()
         } // VStack
@@ -51,25 +76,40 @@ struct ContainerView: View {
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.blue.opacity(0.5), lineWidth: 1)
+                .stroke(borderColor.opacity(0.5), lineWidth: 2)
             
         )
         .frame(maxWidth: .infinity)
-        .sheet(isPresented: $presentEditForm) {
-            AddContainerForm(id: self.container.masterID ?? UUID(), container: self.container)
+        .fullScreenCover(isPresented: $presentEditForm) {
+            ContainerForm(id: self.container.masterID ?? UUID(), container: self.container)
+        }
+    }
+    
+    var borderColor: Color {
+        if let data = container.color, let uiColor = UIColor.color(data: data) {
+            return Color(uiColor)
+        } else {
+            return .clear
         }
     }
 }
 
 struct ItemRowView: View {
-    @State var item: Item
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var item: Item
     
     var body: some View {
         HStack {
-//            TextField("", text: $item.name)
-            Text(item.name ?? "")
-                .foregroundColor(.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            if let name = Binding($item.name) {
+                TextField("Title", text: name)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+//            Text(item.name ?? "")
+//                .foregroundColor(.gray)
+//                .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
             
@@ -86,6 +126,14 @@ struct ItemRowView: View {
             }
             .frame(width: 110)
         }
+    }
+    
+    private func editItem(object: Item) {
+        viewContext.performAndWait {
+            object.name = item.name
+            object.amount = item.amount
+        }
+        try? viewContext.save()
     }
 }
 

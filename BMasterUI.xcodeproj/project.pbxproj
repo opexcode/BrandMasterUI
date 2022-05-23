@@ -30,6 +30,7 @@
 		88447D772831E15900882389 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D762831E15900882389 /* DataController.swift */; };
 		88447D792831EDF300882389 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D782831EDF300882389 /* Constans.swift */; };
 		88447D7B2831F67400882389 /* NewInventoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D7A2831F67400882389 /* NewInventoryForm.swift */; };
+		8862D66E283B25B20052F086 /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862D66D283B25B20052F086 /* DataOperation.swift */; };
 		8A0180DC27367973009496DB /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0180DB27367973009496DB /* TextViewer.swift */; };
 		8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23002B278707FF00F9280A /* CustomTextField.swift */; };
 		8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */; };
@@ -44,7 +45,7 @@
 		8ABA91F727E5BAC0005D387D /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F627E5BAC0005D387D /* InventoryView.swift */; };
 		8ABA91F927E5BC8A005D387D /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91F827E5BC8A005D387D /* ContainerView.swift */; };
 		8ABA91FB27E5BCD7005D387D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91FA27E5BCD7005D387D /* File.swift */; };
-		8ABA91FD27E5C12C005D387D /* AddContainerForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91FC27E5C12C005D387D /* AddContainerForm.swift */; };
+		8ABA91FD27E5C12C005D387D /* ContainerForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA91FC27E5C12C005D387D /* ContainerForm.swift */; };
 		8AC798B5278BBC47009D9B9C /* MailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC798B4278BBC47009D9B9C /* MailComposeView.swift */; };
 		8AC798B9278BD3A3009D9B9C /* DeviceFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC798B8278BD3A3009D9B9C /* DeviceFeatures.swift */; };
 		8ACFA61F273238FA00B0934B /* MarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACFA61E273238FA00B0934B /* MarksView.swift */; };
@@ -81,6 +82,7 @@
 		88447D762831E15900882389 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		88447D782831EDF300882389 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		88447D7A2831F67400882389 /* NewInventoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInventoryForm.swift; sourceTree = "<group>"; };
+		8862D66D283B25B20052F086 /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
 		8A0180DB27367973009496DB /* TextViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		8A23002B278707FF00F9280A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPDFCreator.swift; sourceTree = "<group>"; };
@@ -95,7 +97,7 @@
 		8ABA91F627E5BAC0005D387D /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		8ABA91F827E5BC8A005D387D /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		8ABA91FA27E5BCD7005D387D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		8ABA91FC27E5C12C005D387D /* AddContainerForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContainerForm.swift; sourceTree = "<group>"; };
+		8ABA91FC27E5C12C005D387D /* ContainerForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerForm.swift; sourceTree = "<group>"; };
 		8AC798B4278BBC47009D9B9C /* MailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeView.swift; sourceTree = "<group>"; };
 		8AC798B8278BD3A3009D9B9C /* DeviceFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFeatures.swift; sourceTree = "<group>"; };
 		8ACFA61E273238FA00B0934B /* MarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksView.swift; sourceTree = "<group>"; };
@@ -258,7 +260,7 @@
 				8ABA91F127E5AF99005D387D /* RepositoryView.swift */,
 				8ABA91F627E5BAC0005D387D /* InventoryView.swift */,
 				8ABA91F827E5BC8A005D387D /* ContainerView.swift */,
-				8ABA91FC27E5C12C005D387D /* AddContainerForm.swift */,
+				8ABA91FC27E5C12C005D387D /* ContainerForm.swift */,
 				88447D7A2831F67400882389 /* NewInventoryForm.swift */,
 			);
 			path = Inventory;
@@ -300,6 +302,7 @@
 		8AFC7BE22787E97D00811DAD /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8862D66D283B25B20052F086 /* DataOperation.swift */,
 				443311B226E464EE0043EC38 /* Parameters.swift */,
 				8A93D4EF27885AF6007BBF04 /* Settings.swift */,
 			);
@@ -395,7 +398,7 @@
 				443311B526E4707F0043EC38 /* DataModels.swift in Sources */,
 				8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */,
 				8AF8D5CD2731584A0083BF3F /* Search.swift in Sources */,
-				8ABA91FD27E5C12C005D387D /* AddContainerForm.swift in Sources */,
+				8ABA91FD27E5C12C005D387D /* ContainerForm.swift in Sources */,
 				449CB0C92703E9670094C7DA /* JSONParser.swift in Sources */,
 				4433118C26E44E500043EC38 /* ContentView.swift in Sources */,
 				8ACFA61F273238FA00B0934B /* MarksView.swift in Sources */,
@@ -414,6 +417,7 @@
 				8AF8D5C627313C830083BF3F /* InfoShell.swift in Sources */,
 				8A93D4F027885AF6007BBF04 /* Settings.swift in Sources */,
 				8ABA91F927E5BC8A005D387D /* ContainerView.swift in Sources */,
+				8862D66E283B25B20052F086 /* DataOperation.swift in Sources */,
 				8A5537D3278A84EB00ADC319 /* InstructionsView.swift in Sources */,
 				449CB0C4270357EE0094C7DA /* SettingsView.swift in Sources */,
 				8ABA91FB27E5BCD7005D387D /* File.swift in Sources */,

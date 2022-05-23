@@ -5,6 +5,7 @@
 //  Created by OREKHOV ALEXEY on 19.03.2022.
 //
 
+import CoreData
 import SwiftUI
 
 let colors: [Color] = [.blue, .red, .green, .orange, .yellow, .gray, .pink, .black]
@@ -17,14 +18,14 @@ let colorsGrid = [GridItem(.flexible()),
 
 
 
-struct AddContainerForm: View {
+struct ContainerForm: View {
     
     @Environment(\.presentationMode) var presentaionMode
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State private var colorHeight: CGFloat = 0
     @State private var title: String = ""
-    @State private var currentColor: Color = .clear
+    @State private var colorHeight: CGFloat = 0
+    @State private var currentColor: Color = .green
     
     var container: Container?
     @State var masterId: UUID
@@ -35,15 +36,21 @@ struct AddContainerForm: View {
         _masterId  = State(initialValue: id)
         let containerID = container == nil ? UUID() : container?.ownID
         _ownID = State(initialValue: containerID)
+        
+//        if let container = container, let data = container.color, let uiColor = UIColor.color(data: data) {
+//            _currentColor = State(initialValue: Color(uiColor))
+//        }
     }
 
     
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 30) {
+                // Top
                 HStack {
                     Button("Close") {
                         presentaionMode.wrappedValue.dismiss()
+                        viewContext.rollback()
                     }
                     
                     Spacer()
@@ -64,7 +71,7 @@ struct AddContainerForm: View {
                 // Color
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Выбери цвет")
-                    
+
                     LazyVGrid(columns: colorsGrid) {
                         ForEach(colors, id: \.self) { color in
                             Button(action: {
@@ -94,10 +101,22 @@ struct AddContainerForm: View {
                     } // LazyVGrid
                 }
                 
+                if let container = container {
+                    Button("Delete") {
+                        removeContainer(object: container)
+                    }.foregroundColor(.red)
+                }
+                
                 // Items
                 VStack(alignment: .leading, spacing: 10) {
-                    Button("Add Item") {
-                        addItemToContainer()
+                    Button(action: {
+                        withAnimation() {
+                            addItemToContainer()
+                        }
+                    }) {
+                        Image(systemName: "plus.app")
+                            .resizable()
+                            .frame(width: 30, height: 30)
                     }
                     
                     if let ownID = ownID {
@@ -112,7 +131,11 @@ struct AddContainerForm: View {
             guard let container = container else { return }
             title = container.title ?? ""
 //            masterId = container.id!
-//            currentColor = container.color
+            
+            if let data = container.color, let uiColor = UIColor.color(data: data) {
+                print(currentColor == Color(uiColor))
+                self.currentColor = Color(uiColor)
+            }
         }
     }
     
@@ -123,8 +146,6 @@ struct AddContainerForm: View {
         item.name = "Item name"
         item.amount = 0
         item.masterID = self.ownID
-        
-        try? viewContext.save()
     }
     
     private func createContainer(object: Container?) {
@@ -132,19 +153,32 @@ struct AddContainerForm: View {
             viewContext.performAndWait {
                 object.masterID = self.masterId
                 object.title = self.title
+                object.color = UIColor(self.currentColor).encode()
             }
         } else {
             let container = Container(context: viewContext)
             container.masterID = self.masterId
             container.ownID = self.ownID
             container.title = self.title
-            
+            container.color = UIColor(self.currentColor).encode()
         }
         try? viewContext.save()
     }
     
-    private func removeContainer() {
+    private func removeContainer(object: Container) {
+        presentaionMode.wrappedValue.dismiss()
         
+        // Удаляем контейнер
+        viewContext.delete(object)
+        
+        // Удаляем items контейнера
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        var fetchContent = try? viewContext.fetch(request)
+        fetchContent?.removeAll()
+        
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
     }
 }
 
@@ -156,23 +190,29 @@ struct AddContainerForm: View {
 
 
 struct ItemsView: View {
+    
     @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
     @State var id: UUID
     
     init(id: UUID) {
         _id = State(initialValue: id)
-        
-//        guard let id = id else {return}
         _items = FetchRequest<Item>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "masterID == %@", id as CVarArg)
         )
     }
+    
     var body: some View {
-        VStack {
-            ForEach(items, id: \.self) { item in
-                ItemRowView(item: item)
-            }
+        ForEach(items, id: \.self) { item in
+            ItemRowView(item: item)
         }
+    }
+    
+    private func removeItem(objetct: Item) {
+        
+    }
+    
+    private func removeAllItems() {
+        
     }
 }
