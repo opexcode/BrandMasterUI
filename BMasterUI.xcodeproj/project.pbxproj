@@ -31,6 +31,7 @@
 		88447D792831EDF300882389 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D782831EDF300882389 /* Constans.swift */; };
 		88447D7B2831F67400882389 /* NewInventoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88447D7A2831F67400882389 /* NewInventoryForm.swift */; };
 		8862D66E283B25B20052F086 /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862D66D283B25B20052F086 /* DataOperation.swift */; };
+		88E40F01283BB842004A7769 /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E40F00283BB842004A7769 /* ItemsView.swift */; };
 		8A0180DC27367973009496DB /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0180DB27367973009496DB /* TextViewer.swift */; };
 		8A23002C278707FF00F9280A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23002B278707FF00F9280A /* CustomTextField.swift */; };
 		8A38D8BC278978B3009B2EE6 /* MarksPDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */; };
@@ -83,6 +84,7 @@
 		88447D782831EDF300882389 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		88447D7A2831F67400882389 /* NewInventoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInventoryForm.swift; sourceTree = "<group>"; };
 		8862D66D283B25B20052F086 /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
+		88E40F00283BB842004A7769 /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
 		8A0180DB27367973009496DB /* TextViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		8A23002B278707FF00F9280A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		8A38D8BB278978B3009B2EE6 /* MarksPDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPDFCreator.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				8ABA91F827E5BC8A005D387D /* ContainerView.swift */,
 				8ABA91FC27E5C12C005D387D /* ContainerForm.swift */,
 				88447D7A2831F67400882389 /* NewInventoryForm.swift */,
+				88E40F00283BB842004A7769 /* ItemsView.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				449CB0C72703E94F0094C7DA /* Utilities.swift in Sources */,
 				44F3DEF32702D14800A11392 /* PDFViewUI.swift in Sources */,
 				4433118A26E44E500043EC38 /* BMasterUIApp.swift in Sources */,
+				88E40F01283BB842004A7769 /* ItemsView.swift in Sources */,
 				443311AD26E44F320043EC38 /* MainView.swift in Sources */,
 				8AF8D5CA273157670083BF3F /* CustomNavigationView.swift in Sources */,
 				44D9E33E272678E2005B6C32 /* SimpleSolutionView.swift in Sources */,

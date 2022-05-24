@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NewInventoryForm<Presenting>: View where Presenting: View {
-    
     @Environment(\.colorScheme) var colorScheme
     
     @Binding var isShowing: Bool
@@ -28,7 +27,7 @@ struct NewInventoryForm<Presenting>: View where Presenting: View {
                         
                         TextField("Название", text: self.$text)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .onAppear { self.text = "" }
+//                            .onAppear { self.text = "" }
                         
                         HStack(spacing: 10) {
                             Button("Отмена") {

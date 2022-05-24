@@ -25,7 +25,9 @@ struct ContainerForm: View {
     
     @State private var title: String = ""
     @State private var colorHeight: CGFloat = 0
-    @State private var currentColor: Color = .green
+    @State private var currentColor: Color = .blue
+    
+    @State private var presentRemovedAlert: Bool = false
     
     var container: Container?
     @State var masterId: UUID
@@ -36,10 +38,6 @@ struct ContainerForm: View {
         _masterId  = State(initialValue: id)
         let containerID = container == nil ? UUID() : container?.ownID
         _ownID = State(initialValue: containerID)
-        
-//        if let container = container, let data = container.color, let uiColor = UIColor.color(data: data) {
-//            _currentColor = State(initialValue: Color(uiColor))
-//        }
     }
 
     
@@ -48,16 +46,39 @@ struct ContainerForm: View {
             VStack(alignment: .leading, spacing: 30) {
                 // Top
                 HStack {
-                    Button("Close") {
+                    Button(action: {
                         presentaionMode.wrappedValue.dismiss()
                         viewContext.rollback()
+                    }) {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 18, height: 18)
                     }
                     
                     Spacer()
                     
-                    Button(container != nil ? "Сохранить" : "Добавить") { createContainer(object: self.container)
-                        presentaionMode.wrappedValue.dismiss()
+                    Button(action: {
+                        if !title.isEmpty {
+                            createContainer(object: self.container)
+                            presentaionMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .frame(width: 18, height: 18)
                     }
+                    
+//                    HStack {
+//                        Button(container != nil ? "Сохранить" : "Добавить") {
+//                            if !title.isEmpty {
+//                                createContainer(object: self.container)
+//                                presentaionMode.wrappedValue.dismiss()
+//                            }
+//                        }
+//                        Image(systemName: "checkmark")
+////                            .resizable()
+////                            .frame(width: 18, height: 18)
+//                    }
                 }
                 .frame(height: 50)
                 
@@ -70,7 +91,7 @@ struct ContainerForm: View {
 
                 // Color
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Выбери цвет")
+                    Text("Цвет")
 
                     LazyVGrid(columns: colorsGrid) {
                         ForEach(colors, id: \.self) { color in
@@ -88,7 +109,7 @@ struct ContainerForm: View {
                                         .frame(height: colorHeight)
                                         .cornerRadius(6)
                                     
-                                    if color == currentColor {
+                                    if currentColor == color {
                                         Image(systemName: "checkmark.circle")
                                             .resizable()
                                             .foregroundColor(.white)
@@ -96,33 +117,45 @@ struct ContainerForm: View {
                                             .frame(width: 25)
                                     }
                                 } // ZStack
-                            } // ButtonЯ
+                            } // Button
                         } // ForEach
                     } // LazyVGrid
                 }
                 
-                if let container = container {
-                    Button("Delete") {
-                        removeContainer(object: container)
-                    }.foregroundColor(.red)
+                if container != nil {
+                    Button(action: {
+                        presentRemovedAlert.toggle()
+                    }) {
+                        HStack {
+                            Text("Удалить контейнер")
+                            Image(systemName: "trash")
+                        }
+                        .foregroundColor(.red)
+                    }
                 }
                 
                 // Items
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 15) {
                     Button(action: {
                         withAnimation() {
                             addItemToContainer()
                         }
                     }) {
-                        Image(systemName: "plus.app")
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                        HStack {
+                            Text("Добавить содержимое")
+                            Image(systemName: "plus")
+                        }
                     }
                     
                     if let ownID = ownID {
                         ItemsView(id: ownID)
                     }
                 }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(currentColor.opacity(0.5), lineWidth: 2)
+                )
                 
             }
             .padding(.horizontal)
@@ -130,12 +163,28 @@ struct ContainerForm: View {
         .onAppear() {
             guard let container = container else { return }
             title = container.title ?? ""
-//            masterId = container.id!
-            
-            if let data = container.color, let uiColor = UIColor.color(data: data) {
-                print(currentColor == Color(uiColor))
-                self.currentColor = Color(uiColor)
-            }
+            currentColor = borderColor
+        }
+        
+        .alert(isPresented: $presentRemovedAlert) {
+            Alert(
+                title: Text("Удалить контейнер?"),
+                primaryButton: .default(Text("OK"), action: {
+                    if let container = container {
+                        removeContainer(object: container)
+                    }
+                }),
+                secondaryButton: .cancel(Text("Отмена")) {
+                    presentRemovedAlert = false
+                })
+        }
+    }
+    
+    var borderColor: Color {
+        if let container = container, let data = container.color, let uiColor = UIColor.color(data: data) {
+            return Color(uiColor)
+        } else {
+            return .blue
         }
     }
     
@@ -143,9 +192,10 @@ struct ContainerForm: View {
     
     private func addItemToContainer() {
         let item = Item(context: viewContext)
-        item.name = "Item name"
-        item.amount = 0
+        item.name = "Редактировать"
+        item.amount = 1
         item.masterID = self.ownID
+        item.timestamp = Date()
     }
     
     private func createContainer(object: Container?) {
@@ -161,6 +211,7 @@ struct ContainerForm: View {
             container.ownID = self.ownID
             container.title = self.title
             container.color = UIColor(self.currentColor).encode()
+            container.timestamp = Date()
         }
         try? viewContext.save()
     }
@@ -188,31 +239,3 @@ struct ContainerForm: View {
 //    }
 //}
 
-
-struct ItemsView: View {
-    
-    @FetchRequest(sortDescriptors: []) var items: FetchedResults<Item>
-    @State var id: UUID
-    
-    init(id: UUID) {
-        _id = State(initialValue: id)
-        _items = FetchRequest<Item>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "masterID == %@", id as CVarArg)
-        )
-    }
-    
-    var body: some View {
-        ForEach(items, id: \.self) { item in
-            ItemRowView(item: item)
-        }
-    }
-    
-    private func removeItem(objetct: Item) {
-        
-    }
-    
-    private func removeAllItems() {
-        
-    }
-}

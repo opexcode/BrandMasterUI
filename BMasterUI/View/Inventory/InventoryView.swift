@@ -5,6 +5,7 @@
 //  Created by OREKHOV ALEXEY on 19.03.2022.
 //
 
+import CoreData
 import SwiftUI
 
 struct InventoryView: View {
@@ -14,10 +15,11 @@ struct InventoryView: View {
     @ObservedObject var inventory: Inventory
     @State private var presentAddContainerForm = false
     @State private var editInventoryName = false
+    @State private var placeholder = ""
     
     init(inventory: Inventory) {
         _inventory = ObservedObject(initialValue: inventory)
-        
+        _placeholder = State(initialValue: inventory.name ?? "")
         guard let id = inventory.id else { return }
         _containers = FetchRequest<Container>(
             sortDescriptors: [],
@@ -41,12 +43,12 @@ struct InventoryView: View {
                             }
                         }
                         .padding()
-                        .toolbar { ToolbarContent }
                     }
                 }
             }
             .navigationTitle(inventory.name ?? "")
         }
+        .toolbar { ToolbarContent }
         .fullScreenCover(isPresented: $presentAddContainerForm) {
             ContainerForm(id: inventory.id ?? UUID())
         }
@@ -54,9 +56,9 @@ struct InventoryView: View {
         .overlay(customSheetBackground)
         .textFieldAlert(
             isShowing: $editInventoryName,
-            text: Binding($inventory.name)!,
-            title: "Новый инвентарь",
-            action: {})
+            text: Binding($inventory.name) ?? $placeholder,
+            title: "Название",
+            action: editInventoryTitle)
     }
     
     var EmptyContainer: some View {
@@ -64,9 +66,9 @@ struct InventoryView: View {
             Text("Добавить содержимое")
             
             Button(action: createContainer) {
-                Image(systemName: "plus.square")
+                Image(systemName: "plus")
                     .resizable()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 25, height: 25)
             }
         }
     }
@@ -75,21 +77,23 @@ struct InventoryView: View {
     var ToolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
-                presentAddContainerForm.toggle()
-            }) {
-                Image(systemName: "plus.app.fill")
-            }
-        }
-        
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: {
-                withAnimation {
-                    editInventoryName.toggle()
-                }
+                withAnimation { editInventoryName.toggle() }
             }) {
                 Image(systemName: "pencil")
             }
         }
+        
+        
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if !containers.isEmpty {
+                Button(action: {
+                    withAnimation { presentAddContainerForm.toggle() }
+                }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        
     }
     
     @ViewBuilder
@@ -105,6 +109,15 @@ struct InventoryView: View {
     // MARK: - Funcs
     private func createContainer() {
         presentAddContainerForm.toggle()
+    }
+    
+    private func editInventoryTitle() {
+        if let name = inventory.name {
+            if !name.isEmpty {
+                editInventoryName = false
+                try? viewContext.save()
+            }
+        }
     }
 }
 
