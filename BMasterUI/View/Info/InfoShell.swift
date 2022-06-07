@@ -87,12 +87,10 @@ struct Info: View {
     }
     
     var SearchCompilation: some View {
-        List {
-            ForEach(filteredItems, id: \.self) { query in
-                NavigationLink(destination: TextViewer(text: search.getContent(by: query))) {
-                    Image(systemName: "magnifyingglass")
-                    Text(query)
-                }
+        List(filteredItems, id: \.self) { query in
+            NavigationLink(destination: TextViewer(text: search.getContent(by: query))) {
+                Image(systemName: "magnifyingglass")
+                Text(query)
             }
         }
     }
@@ -100,30 +98,25 @@ struct Info: View {
     var MainMenu: some View {
         List {
             Section {
-                NavigationLink(destination: MarksView()) {
-                    Image(systemName: "bookmark")
-                    Text("Примечания к формулам")
-                }
+                menuRowItem(destination: { MarksView() },
+                            image: "bookmark",
+                            title: "Примечания к формулам")
                 
-                NavigationLink(destination: InstructionsView()) {
-                    Image(systemName: "folder")
-                    Text("Обязаности")
-                }
+                menuRowItem(destination: { InstructionsView() },
+                            image: "folder",
+                            title: "Обязаности")
                 
-                NavigationLink(destination: SmokeServiceView()) {
-                    Image(systemName: "folder")
-                    Text("ГДЗС")
-                }
+                menuRowItem(destination: { SmokeServiceView() },
+                            image: "folder",
+                            title: "ГДЗС")
                 
-                NavigationLink(destination: Leader()) {
-                    Image(systemName: "folder")
-                    Text("РТП")
-                }
+                menuRowItem(destination: { Leader() },
+                            image: "folder",
+                            title: "РТП")
                 
-                NavigationLink(destination: Devices()) {
-                    Image(systemName: "gearshape")
-                    Text("ТТХ СИЗОД")
-                }
+                menuRowItem(destination: { Devices() },
+                            image: "gearshape",
+                            title: "ТТХ СИЗОД")
             }
             
             Section(header: Text(""), footer: FooterView()) {
@@ -154,7 +147,18 @@ struct Info: View {
         
     }
     
+//    @ViewBuilder
+    func menuRowItem<Content>(destination: @escaping () -> Content, image: String, title: String) -> some View where Content: View {
+        NavigationLink(destination: destination) {
+            Image(systemName: image)
+            Text(title)
+        }
+        
+    }
+    
 }
+
+
 
 
 // MARK: - Footer
@@ -168,7 +172,7 @@ struct FooterView: View {
                     Text("БрандМастер - ГДЗС")
                 }
                 
-                Text("Версия: 1.0")
+                Text("Версия: 1.2")
                 Text("Alexey Orekhov")
             }
             Spacer()
