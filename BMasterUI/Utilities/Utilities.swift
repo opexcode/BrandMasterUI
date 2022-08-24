@@ -83,7 +83,7 @@ func checkTextField(type: MeasureType, value: inout String, newValue: String) {
             } else if newValue.count > 3 {
                 value = String(newValue.dropLast())
             } else {
-                if Int(newValue)! > 350 {
+                if Int(newValue) ?? 0 > 350 {
                     value = "350"
                 }
             }

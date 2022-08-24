@@ -28,25 +28,25 @@ struct ContentView: View {
         TabView() {
             MainView(vm: vm)
                 .tabItem({
-                    Image(systemName: "flame")
+                    Image(systemName: "􀙬")
                     Text("Расчеты")
                 })
             
             SettingsView(vm: vm)
                 .tabItem({
-                    Image(systemName: "gearshape")
+                    Image(systemName: "􀣋")
                     Text("Настройки")
                 })
             
             RepositoryView()
                 .tabItem({
-                    Image(systemName: "note.text")
+                    Image(systemName: "􀓕")
                     Text("Инвентарь")
                 })
             
             InfoShell()
                 .tabItem({
-                    Image(systemName: "bookmark")
+                    Image(systemName: "􀉞")
                     Text("Инфо")
                 })
             

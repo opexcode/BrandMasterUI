@@ -49,7 +49,9 @@ struct InfoShell: View {
     @State var showSearch = false
     
     var body: some View {
-        CustomNavigationView(view: Info(filteredItems: $filteredItems, showSearch: $showSearch), onSearch: { txt in
+        CustomNavigationView(
+            view: Info(filteredItems: $filteredItems, showSearch: $showSearch),
+            onSearch: { txt in
             
             // filtering Data...
             if txt != "" {
@@ -89,7 +91,7 @@ struct Info: View {
     var SearchCompilation: some View {
         List(filteredItems, id: \.self) { query in
             NavigationLink(destination: TextViewer(text: search.getContent(by: query))) {
-                Image(systemName: "magnifyingglass")
+                Image(systemName: "􀊫")
                 Text(query)
             }
         }
@@ -99,41 +101,36 @@ struct Info: View {
         List {
             Section {
                 menuRowItem(destination: { MarksView() },
-                            image: "bookmark",
-                            title: "Примечания к формулам")
+                            image: "􀉞", title: "Примечания к формулам")
                 
                 menuRowItem(destination: { InstructionsView() },
-                            image: "folder",
-                            title: "Обязаности")
+                            image: "􀈕", title: "Обязаности")
                 
                 menuRowItem(destination: { SmokeServiceView() },
-                            image: "folder",
-                            title: "ГДЗС")
+                            image: "􀈕", title: "ГДЗС")
                 
                 menuRowItem(destination: { Leader() },
-                            image: "folder",
-                            title: "РТП")
+                            image: "􀈕", title: "РТП")
                 
                 menuRowItem(destination: { Devices() },
-                            image: "gearshape",
-                            title: "ТТХ СИЗОД")
+                            image: "􀣋", title: "ТТХ СИЗОД")
             }
             
             Section(header: Text(""), footer: FooterView()) {
                 
                 HStack {
-                    Image(systemName: "person.2.circle")
+                    Image(systemName: "􀠃")
                     Link("БрандМастер в VK", destination: URL(string: "https://vk.com/brmeister")!)
                 }
                 
                 HStack {
-                    Image(systemName: "applelogo")
+                    Image(systemName: "􀣺")
                     Link("Оценить БрандМастер", destination: URL(string: "https://apps.apple.com/ru/app/id1508823670")!)
                 }
                 
                 
                 HStack {
-                    Image(systemName: "at")
+                    Image(systemName: "􀅷")
                     Button("Написать разработчику") {
                         showingMail.toggle()
                     }
@@ -159,10 +156,10 @@ struct Info: View {
 }
 
 
-
-
 // MARK: - Footer
 struct FooterView: View {
+    let appVersion = Bundle.main.versionNumber
+    
     var body: some View {
         HStack {
             Spacer()
@@ -172,12 +169,26 @@ struct FooterView: View {
                     Text("БрандМастер - ГДЗС")
                 }
                 
-                Text("Версия: 1.2")
+                Text(verbatim: "Версия: \(appVersion ?? "1.0")")
                 Text("Alexey Orekhov")
             }
             Spacer()
         }
         .font(Font.custom("AppleSDGothicNeo-Regular", size: 14))
         .padding()
+    }
+}
+
+extension Bundle {
+    var versionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+
+    var buildNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
+    }
+
+    var bundleName: String? {
+        return infoDictionary?["CFBundleName"] as? String
     }
 }

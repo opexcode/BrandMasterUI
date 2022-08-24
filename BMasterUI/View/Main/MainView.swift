@@ -149,12 +149,20 @@ struct MainView: View {
                             HStack {
                                 Image(systemName: "person.badge.plus")
                                 
-                                Stepper("Состав звена", value: $workConditions.teamSize, in: 2...5)
+                                Text("Состав звена")
                                     .font(.headline)
+                                    .fixedSize()
+                                
+                                Spacer()
+                                
+                                Stepper("", value: $workConditions.teamSize, in: 2...5)
                                     .disabled(!workConditions.fireStatus)
                                     .onChange(of: workConditions.teamSize) { newValue in
                                         workConditions.teamSize = newValue
                                     }
+//                                    .frame(width: 40)
+                                    .opacity(workConditions.fireStatus ? 1.0 : 0.0)
+                                
                             } //HStack
                             .padding(.bottom, 10)
                             
@@ -177,22 +185,31 @@ struct MainView: View {
                             
                             // Очаг обнаружен
                             else {
-                                HStack {
+                                HStack(spacing: 0) {
                                     Text("P вкл.")
-                                        .rotationEffect(Angle(degrees: -90))
                                         .font(.custom("Charter-Roman", size: 17))
+                                        .fixedSize()
+                                        .lineLimit(1)
+                                        .rotationEffect(Angle(degrees: -90))
+                                        .frame(maxWidth: 20, maxHeight: 120)
                                     
                                     VStack {
                                         ForEach(0..<workConditions.teamSize, id: \.self) { i in
-                                            PressureItem(vm: vm, num: i+1, enterValue: $workConditions.startPressure[i], fireValue: $workConditions.firePressure[i])
+                                            PressureItem(vm: vm,
+                                                         num: i+1,
+                                                         enterValue: $workConditions.startPressure[i],
+                                                         fireValue: $workConditions.firePressure[i])
                                         }
                                     }
                                     
                                     Text("P очага")
-                                        .rotationEffect(Angle(degrees: -90))
                                         .font(.custom("Charter-Roman", size: 17))
+                                        .lineLimit(1)
+                                        .fixedSize()
+                                        .rotationEffect(Angle(degrees: -90))
+                                        .frame(maxWidth: 20, maxHeight: 120)
                                 }
-                                .frame(width: 220)
+//                                .frame(width: 200)
                             }
                         } //VStack
                         .padding()

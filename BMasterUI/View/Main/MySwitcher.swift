@@ -38,6 +38,7 @@ struct MySwitcher: View {
 				} //HStack
 				.font(.system(size: 14))
 				.frame(height: 28)
+                .minimumScaleFactor(0.8)
 			
 			} //GeometryReader
 		}
